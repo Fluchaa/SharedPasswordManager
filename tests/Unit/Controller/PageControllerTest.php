@@ -1,12 +1,12 @@
 <?php
 
-namespace OCA\SharedPasswordManager\Tests\Unit\Controller;
+namespace OCA\Spwm\Tests\Unit\Controller;
 
 use PHPUnit_Framework_TestCase;
 
 use OCP\AppFramework\Http\TemplateResponse;
 
-use OCA\SharedPasswordManager\Controller\PageController;
+use OCA\Spwm\Controller\PageController;
 
 
 class PageControllerTest extends PHPUnit_Framework_TestCase {
@@ -17,7 +17,7 @@ class PageControllerTest extends PHPUnit_Framework_TestCase {
 		$request = $this->getMockBuilder('OCP\IRequest')->getMock();
 
 		$this->controller = new PageController(
-			'sharedpasswordmanager', $request, $this->userId
+			'spwm', $request, $this->userId
 		);
 	}
 

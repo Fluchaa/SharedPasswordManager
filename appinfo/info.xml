@@ -5,16 +5,15 @@
     <name>Shared Password Manager</name>
     <summary>Share passwords with multiple Users</summary>
     <description><![CDATA[A password manager included in nextcloud to share passwords to groups]]></description>
-    <version>0.0.4</version>
+    <version>0.0.1</version>
     <licence>agpl</licence>
     <author mail="michael.flucher@gmail.com" >Michael Flucher</author>
-    <namespace>SharedPasswordManager</namespace>
+    <namespace>Spwm</namespace>
     <category>organization</category>
     <category>tools</category>
     <bugs>https://github.com/Fluchaa/SharedPasswordManager/issues</bugs>
     <dependencies>
         <nextcloud min-version="12" max-version="12"/>
-        <database>mysql</database>
     </dependencies>
     <navigations>
         <navigation>

@@ -1,5 +1,5 @@
 <?php
-namespace OCA\SharedPasswordManager\Controller;
+namespace OCA\Spwm\Controller;
 
 use OCP\IRequest;
 use OCP\AppFramework\Http\TemplateResponse;
@@ -25,7 +25,7 @@ class PageController extends Controller {
 	 * @NoCSRFRequired
 	 */
 	public function index() {
-		return new TemplateResponse('sharedpasswordmanager', 'index');  // templates/index.php
+		return new TemplateResponse('spwm', 'index');  // templates/index.php
 	}
 
 }

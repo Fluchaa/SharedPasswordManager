@@ -1,6 +1,6 @@
 <?php
-script('sharedpasswordmanager', 'script');
-style('sharedpasswordmanager', 'style');
+script('spwm', 'script');
+style('spwm', 'style');
 ?>
 
 <div id="app">
