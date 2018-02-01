@@ -1,0 +1,15 @@
+{
+    "name": "Shared Password Manager",
+    "description": "Share passwords with multiple Users",
+    "type": "project",
+    "license": "AGPL",
+    "authors": [
+        {
+            "name": "Michael Flucher"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "^5.4"
+    }
+}

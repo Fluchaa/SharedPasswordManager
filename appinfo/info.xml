@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<info xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+    <id>sharedpasswordmanager</id>
+    <name>Shared Password Manager</name>
+    <summary>Share passwords with multiple Users</summary>
+    <description><![CDATA[A password manager included in nextcloud to share passwords to groups]]></description>
+    <version>0.0.1</version>
+    <licence>agpl</licence>
+    <author mail="michael.flucher@gmail.com" >Michael Flucher</author>
+    <namespace>SharedPasswordManager</namespace>
+    <category>organization</category>
+    <category>tools</category>
+    <bugs>https://github.com/Fluchaa/SharedPasswordManager/issues</bugs>
+    <dependencies>
+        <nextcloud min-version="12" max-version="12"/>
+    </dependencies>
+    <navigations>
+        <navigation>
+            <name>Shared Password Manager</name>
+            <route>sharedpasswordmanager.page.index</route>
+        </navigation>
+    </navigations>
+</info>
