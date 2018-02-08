@@ -2,16 +2,31 @@
 namespace OCA\Spwm\Controller;
 
 use OCP\IRequest;
+use OCP\ISession;
+use OCP\IURLGenerator;
+
 use OCP\AppFramework\Http\TemplateResponse;
-use OCP\AppFramework\Http\DataResponse;
+use OCP\AppFramework\Http\RedirectResponse;
 use OCP\AppFramework\Controller;
+
+use OCA\Spwm\Db\Authentication;
 
 class PageController extends Controller {
 	private $userId;
+	private $session;
+	private $authentication;
+	private $urlGenerator;
 
-	public function __construct($AppName, IRequest $request, $UserId){
+	public function __construct($AppName, IRequest $request, ISession $session, $UserId, Authentication $authentication, IURLGenerator $urlGenerator){
 		parent::__construct($AppName, $request);
 		$this->userId = $UserId;
+		$this->session = $session;
+		$this->authentication = $authentication;
+		$this->urlGenerator = $urlGenerator;
+
+		ini_set('display_errors', 1);
+		ini_set('display_startup_errors', 1);
+		error_reporting(E_ALL);
 	}
 
 	/**
@@ -23,9 +38,22 @@ class PageController extends Controller {
 	 *
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
+	 * @UseSession
+	 *
+	 * @return RedirectResponse/TemplateResponse
 	 */
 	public function index() {
-		return new TemplateResponse('spwm', 'index');  // templates/index.php
+		// check if user has unlocked the spwm
+		if($this->session->exists('spwm_hash')) {
+			echo "logged in";
+			//return new RedirectResponse('/index.php/apps/spwm/items');
+		// check if the user is already registered by admin
+		} else if($this->authentication->checkExists($this->userId) == 1) {
+			echo "not registered by admin";
+			//return new TemplateResponse('spwm', 'notification');
+		// show unlock page
+		} else {
+			return new RedirectResponse($this->urlGenerator->linkToRouteAbsolute('spwm.authentication.unlock'));
+		}
 	}
-
 }

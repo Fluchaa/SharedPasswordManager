@@ -25,12 +25,17 @@
                 <notnull>true</notnull>
             </field>
             <field>
-                <name>privatekey</name> <!-- Private Key, Symetric Encrypted with unhashed Unlock PW -->
+                <name>privatekey</name> <!-- Private Key, Symetric Encrypted with another Hash of login PW than stored in DB -->
                 <type>clob</type>
                 <notnull>true</notnull>
             </field>
             <field>
                 <name>publickey</name> <!-- Public Key -->
+                <type>clob</type>
+                <notnull>true</notnull>
+            </field>
+            <field>
+                <name>unlocksalt</name> <!-- Salt for unlockkey -->
                 <type>clob</type>
                 <notnull>true</notnull>
             </field>
