@@ -49,11 +49,10 @@ class PageController extends Controller {
 			//return new RedirectResponse('/index.php/apps/spwm/items');
 		// check if the user is already registered by admin
 		} else if($this->authentication->checkExists($this->userId) == 1) {
-			echo "not registered by admin";
-			//return new TemplateResponse('spwm', 'notification');
-		// show unlock page
-		} else {
 			return new RedirectResponse($this->urlGenerator->linkToRouteAbsolute('spwm.authentication.unlock'));
+		// show notification to wait for admin
+		} else {
+			return new TemplateResponse('spwm', 'page/notification');
 		}
 	}
 }

@@ -18,7 +18,37 @@
 @import "_mixins.scss";
 
 .app-spwm {
-	#unlockscreen {
+	.alert {
+		@include border-radius(10px);
+		border: 2px solid;
+
+		&.alert-success {
+			color: #3c763d;
+			background-color: #dff0d8;
+			border-color: #d6e9c6;
+		}
+		&.alert-info {
+			color: #31708f;
+			background-color: #d9edf7;
+			border-color: #bce8f1;
+		}
+		&.alert-warning {
+			color: #8a6d3b;
+			background-color: #fcf8e3;
+			border-color: #faebcc;
+		}
+		&.alert-error {
+			color: #a94442;
+			background-color: #f2dede;
+			border-color: #ebccd1;
+		}
+		.content {
+			padding: 20px;
+			font-size: 1.1em;
+		}
+	}
+
+	#spwm-unlockscreen {
 		position: relative;
 		height: 100%;
 		width: 100%;
@@ -31,10 +61,18 @@
 		background: linear-gradient(to bottom, rgba(242,242,242,1) 0%,rgba(204,204,204,1) 100%);
 		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f2f2', endColorstr='#cccccc',GradientType=0 );
 
-		.container {
+		.wrapper {
 			position: relative;
 			width: 80%;
 			max-width: 800px;
+		}
+		.container {
+			position: relative;
+		}
+		.alert {
+			position: absolute;
+			width: 100%;
+			margin-top: 20px;
 		}
 		.circle {
 			position: relative;
@@ -59,13 +97,17 @@
 				@include flex-center-child();
 
 				.fas {
-					font-size: 7em;
+					font-size: 6em;
 					margin-bottom: 15px;
+
+					&.fa-lock-open {
+						margin-left: 20px;
+					}
 				}
 			}
 		}
 		.password-container {
-			width: inherit;
+			width: initial;
 			height: 80px;
 			position: absolute;
 			bottom: calc(50% - 40px);
@@ -111,6 +153,26 @@
 				width: 40px;
 				margin-bottom: 5px;
 			}
+		}
+	}
+
+	#spwm-notification {
+		position: relative;
+		height: 100%;
+		width: 100%;
+
+		@include flex-center-child();
+
+		background: rgb(242,242,242);
+		background: -moz-linear-gradient(top, rgba(242,242,242,1) 0%, rgba(204,204,204,1) 100%);
+		background: -webkit-linear-gradient(top, rgba(242,242,242,1) 0%,rgba(204,204,204,1) 100%);
+		background: linear-gradient(to bottom, rgba(242,242,242,1) 0%,rgba(204,204,204,1) 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f2f2', endColorstr='#cccccc',GradientType=0 );
+		
+		.wrapper {
+			position: relative;
+			width: 80%;
+			max-width: 800px;
 		}
 	}
 }

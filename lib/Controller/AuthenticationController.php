@@ -5,6 +5,7 @@ use OCP\IRequest;
 use OCP\ISession;
 
 use OCP\AppFramework\Http\TemplateResponse;
+use OCP\AppFramework\Http\JSONResponse;
 use OCP\AppFramework\Controller;
 
 use OCA\Spwm\Db\Authentication;
@@ -20,14 +21,34 @@ class AuthenticationController extends Controller {
 		$this->userId = $UserId;
 		$this->session = $session;
 		$this->authentication = $authentication;
+
+		/* TODO: Check if registered, otherwise redirect to admin notification */
 	}
 
 	/**
 	 * @NoCSRFRequired
+	 * @NoAdminRequired
 	 * 
-	 * @return [type] [description]
+	 * @return TemplateResponse
 	 */
 	public function unlock() {
 		return new TemplateResponse('spwm', 'authentication/unlock');
+	}
+
+	/**
+	 * @NoAdminRequired
+	 * 
+	 * @param  $password
+	 * @return JSONResponse
+	 */
+	public function dounlock($password) {
+		if($this->authentication->unlock($this->userId, $password) == 1) {
+			$response['type'] = 'success';
+			$response['message'] = 'Eingeloggt';
+		} else {
+			$response['type'] = 'error';
+			$response['message'] = 'Fehler';
+		}
+		return new JSONResponse($response);
 	}
 }
