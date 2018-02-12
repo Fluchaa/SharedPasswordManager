@@ -1,0 +1,28 @@
+<div id="spwm-unlockscreen">
+	<div class="wrapper">
+		<div class="container">
+			<div class="circle">
+				<div class="circle-inner">
+					<i class="fas fa-lock" lock-directive></i>
+				</div>
+			</div>
+			<div class="password-container">
+				<div class="form-group">
+					<div class="box">
+						<label for="unlockPassword">Unlock your Vault</label>
+					</div>
+					<div class="box">
+						<input type="password" name="unlockPassword" id="unlockPassword" class="form-control" ng-keyup="($event.keyCode == 13) ? unlockVault() : return" ng-model="password" />
+						<button type="button" ng-click="unlockVault()"><i class="fas fa-unlock-alt"></i></button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="alert" ng-class="alert_type" ng-if="!alert_hidden">
+			<p class="content">
+				{{ alert_text }}
+			</p>
+			<i class="fas fa-times btn-close" alt="Close" ng-click="setAlertHidden(true)"></i>
+		</div>
+	</div>
+</div>

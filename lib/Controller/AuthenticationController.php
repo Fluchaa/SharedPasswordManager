@@ -21,18 +21,6 @@ class AuthenticationController extends Controller {
 		$this->userId = $UserId;
 		$this->session = $session;
 		$this->authentication = $authentication;
-
-		/* TODO: Check if registered, otherwise redirect to admin notification */
-	}
-
-	/**
-	 * @NoCSRFRequired
-	 * @NoAdminRequired
-	 * 
-	 * @return TemplateResponse
-	 */
-	public function unlock() {
-		return new TemplateResponse('spwm', 'authentication/unlock');
 	}
 
 	/**
@@ -41,7 +29,7 @@ class AuthenticationController extends Controller {
 	 * @param  $password
 	 * @return JSONResponse
 	 */
-	public function dounlock($password) {
+	public function unlock($password) {
 		if($this->authentication->unlock($this->userId, $password) == 1) {
 			$response['type'] = 'success';
 			$response['message'] = 'Eingeloggt';

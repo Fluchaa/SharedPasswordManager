@@ -13,12 +13,18 @@
  * Noone is permitted to use or sell parts of the Software or the whole Software 
  * without the written permission of niTEC GesbR. 
  */
+/* Bootstrap-Grid fix */
+*, ::after, ::before {
+  box-sizing: content-box;
+}
+
 .app-spwm .alert {
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
   background-clip: padding-box;
   /* stops bg color from leaking outside the border: */
   border: 2px solid;
+  position: relative;
 }
 .app-spwm .alert.alert-success {
   color: #3c763d;
@@ -43,6 +49,29 @@
 .app-spwm .alert .content {
   padding: 20px;
   font-size: 1.1em;
+}
+.app-spwm .btn-close {
+  cursor: pointer;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 1.2em;
+  padding: 5px;
+}
+.app-spwm .http-warning {
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+  margin-top: 20px;
+}
+.app-spwm #app-navigation.without-app-settings {
+  display: none;
 }
 .app-spwm #spwm-unlockscreen {
   position: relative;

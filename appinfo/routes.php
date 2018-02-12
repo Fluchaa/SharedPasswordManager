@@ -11,10 +11,12 @@ return [
 	'routes' => [
 		['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
 
+		/* Unlock */
+		['name' => 'authentication#unlock', 'url' => '/api/v1/unlock', 'verb' => 'POST']
 		
-		['name' => 'item#list', 'url' => '/items', 'verb' => 'GET'],
+		/*['name' => 'item#list', 'url' => '/items', 'verb' => 'GET'],
 
 		['name' => 'authentication#unlock', 'url' => '/unlock', 'verb' => 'GET'],
-		['name' => 'authentication#dounlock', 'url' => '/api/v1/unlock', 'verb' => 'POST']
+		['name' => 'authentication#dounlock', 'url' => '/api/v1/unlock', 'verb' => 'POST']*/
     ]
 ];

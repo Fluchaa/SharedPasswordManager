@@ -1,0 +1,28 @@
+{
+  "name": "spwm",
+  "version": "1.0.0",
+  "description": "Place this app in **nextcloud/apps/**",
+  "main": "gulpfile.js",
+  "directories": {
+    "lib": "lib",
+    "test": "tests"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-angular-templatecache": "^2.2.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fluchaa/SharedPasswordManager.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Fluchaa/SharedPasswordManager/issues"
+  },
+  "homepage": "https://github.com/Fluchaa/SharedPasswordManager#readme"
+}

@@ -17,10 +17,16 @@
 @import "_variables.scss";
 @import "_mixins.scss";
 
+/* Bootstrap-Grid fix */
+*, ::after, ::before {
+	box-sizing: content-box;
+}
+
 .app-spwm {
 	.alert {
-		@include border-radius(10px);
+		@include border-radius(5px);
 		border: 2px solid;
+		position: relative;
 
 		&.alert-success {
 			color: #3c763d;
@@ -45,6 +51,28 @@
 		.content {
 			padding: 20px;
 			font-size: 1.1em;
+		}
+	}
+	.btn-close {
+		cursor: pointer;
+		@include disable-select;
+
+		position: absolute;
+		top: 0;
+		right: 0;
+		font-size: 1.2em;
+		padding: 5px;
+	}
+
+	.http-warning {
+		width: 100%;
+		max-width: 600px;
+		margin: auto;
+		margin-top: 20px;
+	}
+	#app-navigation {
+		&.without-app-settings {
+			display: none;
 		}
 	}
 

@@ -19,10 +19,7 @@ class Application extends App {
 			 return new PageController(
 				$c->query('AppName'),
 				$c->query('Request'),
-				$c->query('Session'),
-				$c->query('UserId'),
-				$c->query('Authentication'),
-				$c->query('UrlGenerator')
+				$c->query('UserId')
 			);
 		});
 		$container->registerService('AuthenticationController', function($c) {
@@ -35,14 +32,14 @@ class Application extends App {
 				$c->query('UrlGenerator')
 			);
 		});
-		$container->registerService('ItemController', function($c) {
+		/*$container->registerService('ItemController', function($c) {
 			 return new PageController(
 				$c->query('AppName'),
 				$c->query('Request'),
 				$c->query('Session'),
 				$c->query('UserId')
 			);
-		});
+		});*/
 
 		/**
 		 * Mappers
