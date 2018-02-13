@@ -18,7 +18,7 @@ $(document).ready(function() {
 	var Settings = function(baseUrl) {
 		this._baseUrl = baseUrl;
 		this._settings = [];
-	}
+	};
 
 	Settings.prototype = {
 		load: function() {
@@ -35,15 +35,54 @@ $(document).ready(function() {
 			});
 			return deferred.promise();
 		},
-		getAll: function () {
+		getAll: function() {
 			return this._settings;
+		},
+		getKey: function(key) {
+			if(this._settings.hasOwnProperty(key)) {
+				return this._settings[key];
+			}
+			return false;
+		},
+		setKey: function(key, value) {
+			$.ajax({
+				url: this._baseUrl + '/admin/' + key,
+				method: 'POST',
+				data: {value: value}
+			}).done(function (response) {
+				console.log(response);
+			}).fail(function (response) {
+				console.log(response);
+			});
+		},
+		firstrun: function() {
+			$.ajax({
+				url: this._baseUrl + '/firstrun',
+				method: 'GET',
+				async: false
+			}).done(function (response) {
+				console.log(response);
+			}).fail(function (response) {
+				console.log(response);
+			});
 		}
-	}
+	};
 
+	// get data
 	var settings = new Settings(OC.generateUrl('apps/spwm/api/v1/settings'));
 	settings.load();
 
-	console.log(settings.getAll());
+	// check for first run - generate pepper
+	if(settings.getKey('pepper') === "") {
+		settings.firstrun();
+	} 
+
+	// insert gathered data
+	$('#spwm_pepper').val(settings.getKey('pepper'));
+
+	$('#spwm_pepper').change(function() {
+		settings.setKey('pepper', $(this).val());
+	});
 
 	$('#spwm-tabs').tabs();
 });

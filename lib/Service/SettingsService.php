@@ -25,27 +25,52 @@ class SettingsService {
 	private $appName;
 	private $settings;
 
+	private $int_setting = [
+		''
+	];
+
 	public function __construct($UserId, ICONfig $config, $AppName) {
 		$this->userId = $UserId;
 		$this->config = $config;
 		$this->appName = $AppName;
 
 		$this->settings = [
-			'salt' => $this->config->getAppValue('spwm', 'salt', uniqid(mt_rand(), true)),
+			'pepper' => $this->config->getAppValue('spwm', 'pepper', '')
 		];
 	}
 
+	/**
+	 * return all settings
+	 */
 	public function getAppSettings() {
 		return $this->settings;
 	}
 
-	public function getAppSettings($key) {
-		$value = ($this->settings[$key]) ? $this->settings[$key] : $this->config->getAppValue('spwm', $key, $default_value);
-		return $value;
+	/**
+	 * return an App Setting
+	 */
+	public function getAppSetting($key) {
+		if(array_key_exists($key, $this->settings)) {
+			if(in_array($key, $this->int_setting)) {
+				return intval($this->settings[$key]);
+			}
+			return $this->settings[$key];
+		}
+		return null;
 	}
 
+	/**
+	 * set an App Setting
+	 */
 	public function setAppSetting($key, $value) {
 		$this->settings[$key] = $value;
 		$this->config->setAppValue('spwm', $key, $value);
+	}
+
+	/**
+	 * delete an App Setting
+	 */
+	public function deleteAppSetting($key) {
+		$this->config->deleteAppValue('spwm', $key);
 	}
 }

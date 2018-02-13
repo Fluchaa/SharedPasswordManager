@@ -19,7 +19,8 @@ class Application extends App {
 			 return new PageController(
 				$c->query('AppName'),
 				$c->query('Request'),
-				$c->query('UserId')
+				$c->query('UserId'),
+				$c->query('SettingsService')
 			);
 		});
 		/*$container->registerService('AuthenticationController', function($c) {

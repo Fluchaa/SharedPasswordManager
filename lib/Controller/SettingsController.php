@@ -79,4 +79,16 @@ class SettingsController extends ApiController {
 		$this->settings->setAppSetting($key, $value);
 		return new JSONResponse('OK');
 	}
+
+	/**
+	 * generate Pepper for first run from settings
+	 *
+	 * @NoCSRFRequired
+	 */
+	public function generatePepper() {
+		if(empty($this->settings->getAppSetting('pepper'))) {
+			$this->settings->setAppSetting('pepper', hash('sha512', mt_rand()));
+		}
+		return new JSONResponse('OK');
+	}
 }

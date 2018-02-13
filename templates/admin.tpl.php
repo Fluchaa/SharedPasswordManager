@@ -22,7 +22,8 @@ style('spwm', 'vendor/fontawesome-all.min');
 		</ul>
 		<div id="general">
 			<form name="spwm_settings">
-				
+				<label for="spwm_pepper">Application's Pepper</label>
+				<input type="text" name="spwm_pepper" id="spwm_pepper" />
 			</form>
 		</div>
 		<div id="users">

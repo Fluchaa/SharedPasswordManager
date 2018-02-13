@@ -1,6 +1,8 @@
 <?php
 namespace OCA\Spwm\Controller;
 
+use OCA\Spwm\Service\SettingsService;
+
 use OCP\IRequest;
 
 use OCP\AppFramework\Http\TemplateResponse;
@@ -8,10 +10,12 @@ use OCP\AppFramework\Controller;
 
 class PageController extends Controller {
 	private $userId;
+	private $settings;
 
-	public function __construct($AppName, IRequest $request, $UserId){
+	public function __construct($AppName, IRequest $request, $UserId, SettingsService $Settings){
 		parent::__construct($AppName, $request);
 		$this->userId = $UserId;
+		$this->settings = $Settings;
 	}
 
 	/**
@@ -27,6 +31,12 @@ class PageController extends Controller {
 	 * @return TemplateResponse
 	 */
 	public function index() {
+		// first run, set pepper
+		// maybe check for admin?
+		if(empty($this->settings->getAppSetting('pepper'))) {
+			$this->settings->setAppSetting('pepper', hash('sha512', mt_rand()));
+		}
+
 		$params = ['user' => $this->userId];
 		return new TemplateResponse('spwm', 'main', $params);
 	}
