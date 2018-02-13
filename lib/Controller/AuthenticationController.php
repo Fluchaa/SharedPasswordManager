@@ -16,7 +16,7 @@ class AuthenticationController extends Controller {
 	private $authentication;
 	private $urlGenerator;
 
-	public function __construct($AppName, IRequest $request, ISession $session, $UserId, Authentication $authentication){
+	public function __construct($AppName, IRequest $request, ISession $session, $UserId, Authentication $authentication) {
 		parent::__construct($AppName, $request);
 		$this->userId = $UserId;
 		$this->session = $session;

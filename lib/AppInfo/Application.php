@@ -4,7 +4,7 @@ namespace OCA\Spwm\AppInfo;
 use OCP\AppFramework\App;
 
 use OCA\Spwm\Controller\PageController;
-use OCA\Spwm\Db\Authentication;
+use OCA\Spwm\Service\SettingsService;
 
 class Application extends App {
 	public function __construct(array $urlParams=array()) {
@@ -22,8 +22,8 @@ class Application extends App {
 				$c->query('UserId')
 			);
 		});
-		$container->registerService('AuthenticationController', function($c) {
-			 return new PageController(
+		/*$container->registerService('AuthenticationController', function($c) {
+			 return new AuthenticationController(
 				$c->query('AppName'),
 				$c->query('Request'),
 				$c->query('Session'),
@@ -31,7 +31,7 @@ class Application extends App {
 				$c->query('Authentication'),
 				$c->query('UrlGenerator')
 			);
-		});
+		});*/
 		/*$container->registerService('ItemController', function($c) {
 			 return new PageController(
 				$c->query('AppName'),
@@ -44,10 +44,12 @@ class Application extends App {
 		/**
 		 * Mappers
 		 */
-		$container->registerService('Authentication', function($c) {
+		/*$container->registerService('Authentication', function($c) {
 			return new UserkeyMapper(
 				$c->query('ServerContainer')->getDb()
 			);
-		});
+		});*/
+
+		$container->registerAlias('SettingsService', SettingsService::class);
 	}
 }

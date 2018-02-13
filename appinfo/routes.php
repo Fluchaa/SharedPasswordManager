@@ -11,8 +11,11 @@ return [
 	'routes' => [
 		['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
 
-		/* Unlock */
+		// Unlock
 		['name' => 'authentication#unlock', 'url' => '/api/v1/unlock', 'verb' => 'POST']
+
+		// Settings
+		['name' => 'settings#getSettings', 'url' => '/api/v1/settings', 'verb' => 'GET']
 		
 		/*['name' => 'item#list', 'url' => '/items', 'verb' => 'GET'],
 
