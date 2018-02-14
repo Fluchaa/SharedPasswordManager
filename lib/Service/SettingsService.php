@@ -29,13 +29,13 @@ class SettingsService {
 		''
 	];
 
-	public function __construct($UserId, ICONfig $config, $AppName) {
+	public function __construct($UserId, IConfig $config, $AppName) {
 		$this->userId = $UserId;
 		$this->config = $config;
 		$this->appName = $AppName;
 
 		$this->settings = [
-			'pepper' => $this->config->getAppValue('spwm', 'pepper', '')
+			/*'pepper' => $this->config->getAppValue('spwm', 'pepper', '')*/
 		];
 	}
 

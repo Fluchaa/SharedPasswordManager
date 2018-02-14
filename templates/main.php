@@ -1,18 +1,34 @@
 <?php
-	script('spwm', 'vendor/angular');
-	script('spwm', 'vendor/angular-route');
+/**
+ * @copyright Copyright (c) 2018 niTEC GesbR https://nitec.at
+ * @author Michael Flucher <michael.flucher@nitec.at>
+ *
+ * Permission is hereby granted to 
+ *
+ * all our Customers
+ *
+ * obtaining a copy of this software and associated documentation files (the "Software"), 
+ * to deal in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge or publish this Software. 
+ *
+ * Noone is permitted to use or sell parts of the Software or the whole Software 
+ * without the written permission of niTEC GesbR. 
+ */
 
-	script('spwm', 'templates');
-	script('spwm', 'app/app');
-	script('spwm', 'app/controller/main');
-	script('spwm', 'app/controller/unlock');
-	script('spwm', 'app/directive/vaultlock');
-	script('spwm', 'app/service/unlock');
+script('spwm', 'vendor/angular');
+script('spwm', 'vendor/angular-route');
 
-	
-	style('spwm', 'vendor/fontawesome-all.min');
-	style('spwm', 'vendor/bootstrap-grid.min');
-	style('spwm', 'app');
+script('spwm', 'templates');
+script('spwm', 'app/app');
+script('spwm', 'app/controller/main');
+script('spwm', 'app/controller/unlock');
+script('spwm', 'app/directive/vaultlock');
+script('spwm', 'app/service/unlock');
+
+
+style('spwm', 'vendor/fontawesome-all.min');
+style('spwm', 'vendor/bootstrap-grid.min');
+style('spwm', 'app');
 ?>
 
 <div id="app" ng-app="spwm" ng-controller="MainCtrl">

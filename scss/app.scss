@@ -52,6 +52,7 @@
 			font-size: 1.1em;
 		}
 	}
+
 	.btn-close {
 		cursor: pointer;
 		@include disable-select;
@@ -69,6 +70,14 @@
 		margin: auto;
 		margin-top: 20px;
 	}
+
+	.not-registered {
+		width: 100%;
+		max-width: 600px;
+		margin: auto;
+		margin-top: 20px;
+	}
+
 	#app-navigation {
 		&.without-app-settings {
 			display: none;

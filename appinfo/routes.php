@@ -17,6 +17,10 @@ return [
 		// Settings
 		['name' => 'settings#getSettings', 'url' => '/api/v1/settings', 'verb' => 'GET'],
 		['name' => 'settings#saveAdminSetting', 'url' => '/api/v1/settings/admin/{key}', 'verb' => 'POST'],
-		['name' => 'settings#generatePepper', 'url' => '/api/v1/settings/firstrun', 'verb' => 'GET']
+
+		// Admin
+		['name' => 'admin#searchUser', 'url' => '/admin/search', 'verb' => 'GET'],
+		['name' => 'admin#addUser', 'url' => '/admin/add/{userId}/{password}', 'verb' => 'GET']
+		/*['name' => 'settings#generatePepper', 'url' => '/api/v1/settings/firstrun', 'verb' => 'GET']*/
     ]
 ];

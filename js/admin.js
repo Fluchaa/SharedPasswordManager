@@ -54,7 +54,7 @@ $(document).ready(function() {
 			}).fail(function (response) {
 				console.log(response);
 			});
-		},
+		}/*,
 		firstrun: function() {
 			$.ajax({
 				url: this._baseUrl + '/firstrun',
@@ -65,23 +65,67 @@ $(document).ready(function() {
 			}).fail(function (response) {
 				console.log(response);
 			});
+		}*/
+	};
+
+	var Groups = function(baseUrl) {
+		this._baseUrl = baseUrl;
+		this._groups = [];
+	};
+
+	Groups.prototype = {
+
+	};
+
+	var Users = function(baseUrl) {
+		this._baseUrl = baseUrl;
+		this._users = [];
+	};
+
+	Users.prototype = {
+		load: function() {
+
+		},
+		addUser: function(userId, password) {
+			$.ajax({
+				url: this._baseUrl + '/add/' + userId,
+				method: 'POST',
+				data: {password: password}
+			}).done(function (response) {
+				console.log(response);
+			}).fail(function (response) {
+				console.log(response);
+			});
 		}
 	};
 
-	// get data
+	// get settings
 	var settings = new Settings(OC.generateUrl('apps/spwm/api/v1/settings'));
 	settings.load();
 
 	// check for first run - generate pepper
-	if(settings.getKey('pepper') === "") {
+	// pepper is stored in DB => useless
+	/*if(settings.getKey('pepper') === "") {
 		settings.firstrun();
-	} 
+	} */
 
 	// insert gathered data
 	$('#spwm_pepper').val(settings.getKey('pepper'));
 
 	$('#spwm_pepper').change(function() {
 		settings.setKey('pepper', $(this).val());
+	});
+
+	// get users
+	var users = new Users(OC.generateUrl('apps/spwm/admin'));
+
+	$('#spwm_add_username').autocomplete({
+		source: OC.generateUrl('apps/spwm/admin/search'),
+		minLength: 1
+	});
+
+	$('#spwm_add_button').click(function() {
+		users.addUser($('#spwm_add_username').val(), $('#spwm_add_password').val());
 	});
 
 	$('#spwm-tabs').tabs();
