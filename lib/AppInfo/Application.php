@@ -33,24 +33,12 @@ class Application extends App {
 		$container = $this->getContainer();
 
 		/**
-		 * Controllers
-		 */
-		$container->registerService('PageController', function($c) {
-			return new PageController(
-				$c->query('AppName'),
-				$c->query('Request'),
-				$c->query('UserId'),
-				$c->query('SettingsService'),
-				$c->query('UserKeyMapper')
-			);
-		});
-
-		/**
 		 * Aliases
 		 */
 		$container->registerAlias('IDBConnection', IDBConnection::class);
 		$container->registerAlias('IConfig', IConfig::class);
 
+		$container->registerAlias('PageController', PageController::class);
 		$container->registerAlias('AdminController', AdminController::class);
 		$container->registerAlias('SettingsService', SettingsService::class);
 		$container->registerAlias('AdminService', AdminService::class);

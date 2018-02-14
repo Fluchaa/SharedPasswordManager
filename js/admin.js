@@ -125,6 +125,7 @@ $(document).ready(function() {
 	});
 
 	$('#spwm_add_button').click(function() {
+		console.log('click');
 		users.addUser($('#spwm_add_username').val(), $('#spwm_add_password').val());
 	});
 

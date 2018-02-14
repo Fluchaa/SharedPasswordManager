@@ -8,7 +8,9 @@
             "name": "Michael Flucher"
         }
     ],
-    "require": {},
+    "require": {
+        "paragonie/halite": "4"
+    },
     "require-dev": {
         "phpunit/phpunit": "^5.4"
     }

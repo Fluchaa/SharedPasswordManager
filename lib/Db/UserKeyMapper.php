@@ -37,6 +37,6 @@ class UserKeyMapper extends Mapper {
 	}
 
 	public function create($userId, $password) {
-		return 'hallo';
+		return phpversion();
 	}
 }

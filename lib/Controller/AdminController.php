@@ -28,10 +28,10 @@ class AdminController extends ApiController {
 	private $userId;
 	private $admin;
 
-	public function __construct($AppName, IRequest $request, $UserId, AdminService $AdminService) {
+	public function __construct($AppName, IRequest $request, $UserId, AdminService $adminService) {
 		parent::__construct($AppName, $request, 'GET, POST, DELETE, PUT, PATCH, OPTIONS', 'Authorization, Content-Type, Accept', 86400);
 		$this->userId = $UserId;
-		$this->admin = $AdminService;
+		$this->admin = $adminService;
 	}
 
 	/**
@@ -54,12 +54,10 @@ class AdminController extends ApiController {
 	}
 
 	/**
-	 * @NoCSRFRequired
-	 * @param [type] $userId   [description]
-	 * @param [type] $password [description]
+	 * add User
 	 */
 	public function addUser($userId, $password) {
-		$response = $admin->addUser($userId, $password);
+		$response = $this->admin->addUser($userId, $password);
 		return new JSONResponse($response);
 	}
 }

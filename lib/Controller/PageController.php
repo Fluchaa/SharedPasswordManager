@@ -59,8 +59,8 @@ class PageController extends Controller {
 		/*if(empty($this->settings->getAppSetting('pepper'))) {
 			$this->settings->setAppSetting('pepper', hash('sha512', mt_rand()));
 		}*/
-
-		try {
+		$alice_keypair = \ParagonIE\Halite\KeyFactory::generateEncryptionKeyPair();
+		/*try {
 			// check if registered
 			$this->userKeyMapper->find($this->userId);
 
@@ -68,6 +68,6 @@ class PageController extends Controller {
 			return new TemplateResponse('spwm', 'main', $params);
 		} catch(DoesNotExistException $e) {
 			return new TemplateResponse('spwm', 'notregistered');
-		}
+		}*/
 	}
 }

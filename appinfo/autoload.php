@@ -17,6 +17,4 @@
 
 namespace OCA\Spwm\AppInfo;
 
-require_once __DIR__ . '/autoload.php';
-
-\OCP\App::registerAdmin('spwm', 'templates/admin');
+require_once __DIR__ . '/../vendor/autoload.php';
