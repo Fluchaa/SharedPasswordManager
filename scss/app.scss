@@ -108,7 +108,8 @@
 		.alert {
 			position: absolute;
 			width: 100%;
-			margin-top: 20px;
+			bottom: 100%;
+			margin-bottom: 20px;
 		}
 		.circle {
 			position: relative;
@@ -133,11 +134,11 @@
 				@include flex-center-child();
 
 				.fas {
-					font-size: 6em;
-					margin-bottom: 15px;
+					font-size: 5em;
+					margin-bottom: 10px;
 
 					&.fa-lock-open {
-						margin-left: 20px;
+						margin-left: 16px;
 					}
 				}
 			}

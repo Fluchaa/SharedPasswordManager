@@ -9,8 +9,8 @@
 				unlock: function(password) {
 					console.log('service');
 					var queryUrl = OC.generateUrl('/apps/spwm/api/v1/unlock');
-					return $http.post(queryUrl, password);
+					return $http.post(queryUrl, {password: password});
 				}
-			}
+			};
 		});
 }());

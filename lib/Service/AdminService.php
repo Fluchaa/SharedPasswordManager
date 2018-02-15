@@ -23,20 +23,61 @@ use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCA\Spwm\Db\UserKey;
 use OCA\Spwm\Db\UserKeyMapper;
 
+use OCA\Spwm\Service\CryptService;
+use OCA\Spwm\Utility\Utils;
+
 class AdminService {
 	private $userKeyMapper;
 	private $crypt;
+	private $utils;
 
-	public function __construct(UserKeyMapper $userKeyMapper, CryptService $crypt) {
+	public function __construct(UserKeyMapper $userKeyMapper, CryptService $crypt, Utils $utils) {
 		$this->userKeyMapper = $userKeyMapper;
 		$this->crypt = $crypt;
+		$this->utils = $utils;
 	}
 
 	/**
 	 * add User
 	 */
 	public function addUser($userId, $password) {
-		return $this->crypt->getLoginHash(1,1);
-		//return $this->userKeyMapper->create($userId, $password);
+		if($this->utils->userExists($userId)) {
+			// check if user is already registered
+			try {
+				$this->userKeyMapper->find($userId);
+				return [
+					'type' => 'error',
+					'message' => 'User is already registered'
+				];
+			} catch(DoesNotExistException $e) {
+				try {
+					// generate data
+					$salt = $this->crypt->generateSalt();
+					$hash = $this->crypt->getLoginHash($password, $salt, $userId);
+					$pubKey = $this->crypt->generateKeyPair($password, $salt, false);
+
+					if($this->userKeyMapper->create($userId, $hash, $pubKey, $salt)) {
+						return [
+							'type' => 'success',
+							'message' => 'User added successful'
+						];
+					}
+					return [
+						'type' => 'error',
+						'message' => 'Error on Database insert'
+					];
+
+				} catch(Exception $e) {
+					return [
+						'type' => 'error',
+						'message' => 'Error during user creation'
+					];
+				}
+			}
+		}
+		return [
+			'type' => 'error',
+			'message' => 'User does not exist'
+		];
 	}
 }

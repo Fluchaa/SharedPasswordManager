@@ -16,12 +16,18 @@
  */
 
 namespace OCA\Spwm\Db;
+
 use OCP\IDBConnection;
 use OCP\AppFramework\Db\Mapper;
 
+use OCA\Spwm\Utility\Utils;
+
 class UserKeyMapper extends Mapper {
-	public function __construct(IDBConnection $db) {
+	private $utils;
+
+	public function __construct(IDBConnection $db, Utils $utils) {
 		parent::__construct($db, 'spwm_userkey');
+		$this->utils = $utils;
 	}
 
 	/**
@@ -29,14 +35,29 @@ class UserKeyMapper extends Mapper {
 	 * @throws DoesNotExistException if no entry is found
 	 * @throws MultipleObjectsReturnedException if more than one result
 	 * @param  $user_id
-	 * @return Vault
+	 * @return UserKey
 	 */
 	public function find($user_id) {
 		$sql = 'SELECT * FROM `*PREFIX*spwm_userkey` WHERE `user_id` = ?';
 		return $this->findEntity($sql, [$user_id]);
 	}
 
-	public function create($userId, $password) {
-		return phpversion();
+	/**
+	 * Create UserKey (Login) Entry
+	 * @param  $userId    
+	 * @param  $hash      
+	 * @param  $publicKey 
+	 * @param  $salt      
+	 * @return bool if successful           
+	 */
+	public function create($userId, $hash, $publicKey, $salt) {
+		$userKey = new UserKey();
+		$userKey->setUserId($userId);
+		$userKey->setUnlockkey($hash);
+		$userKey->setPublickey($publicKey);
+		$userKey->setSalt($salt);
+		$userKey->setCreated($this->utils->getTime());
+		$userKey->setLastAccess(0);
+		return parent::insert($userKey);
 	}
 }

@@ -28,22 +28,16 @@ use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Db\DoesNotExistException;
 
-use OCA\Spwm\Service\CryptService;
-
 class PageController extends Controller {
 	private $userId;
 	private $settings;
 	private $userKeyMapper;
-	private $crypt;
-	private $session;
 
-	public function __construct($AppName, IRequest $request, $UserId, SettingsService $Settings, UserKeyMapper $UserKeyMapper, CryptService $crypt, ISession $session){
+	public function __construct($AppName, IRequest $request, $UserId, SettingsService $settings, UserKeyMapper $UserKeyMapper){
 		parent::__construct($AppName, $request);
 		$this->userId = $UserId;
-		$this->settings = $Settings;
+		$this->settings = $settings;
 		$this->userKeyMapper = $UserKeyMapper;
-		$this->crypt = $crypt;
-		$this->session = $session;
 	}
 
 	/**
@@ -66,7 +60,7 @@ class PageController extends Controller {
 			$this->settings->setAppSetting('pepper', hash('sha512', mt_rand()));
 		}*/
 
-		/*try {
+		try {
 			// check if registered
 			$this->userKeyMapper->find($this->userId);
 
@@ -74,9 +68,9 @@ class PageController extends Controller {
 			return new TemplateResponse('spwm', 'main', $params);
 		} catch(DoesNotExistException $e) {
 			return new TemplateResponse('spwm', 'notregistered');
-		}*/
+		}
 
-
+		/*
 		// generate salt
 		echo "salt: ";
 		$salt = $this->crypt->generateSalt();
@@ -119,6 +113,6 @@ class PageController extends Controller {
 		echo $enc;
 
 		echo "\nitem password: ";
-		echo $this->crypt->decryptItemPassword($enc, $unsealed);
+		echo $this->crypt->decryptItemPassword($enc, $unsealed);*/
 	}
 }

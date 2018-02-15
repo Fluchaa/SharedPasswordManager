@@ -39,7 +39,7 @@ class CryptService {
 	 * @return string 16-Byte salt
 	 */
 	public function generateSalt() {
-		return random_bytes(16);
+		return base64_encode(random_bytes(16));
 	}
 
 	/**
@@ -50,6 +50,7 @@ class CryptService {
 	 * @return string BASE64 hash to be inserted in DB
 	 */
 	public function getLoginHash($password, $salt, $userId) {
+		$salt = base64_decode($salt);
 		$encKey = $this->loadHashEncryptionKey($userId);
 		return Password::hash(new HiddenString($password . $salt), $encKey);
 	}
@@ -63,6 +64,7 @@ class CryptService {
 	 * @return bool true if password is right         
 	 */
 	public function checkLoginHash($password, $salt, $hash, $userId) {
+		$salt = base64_decode($salt);
 		$encKey = $this->loadHashEncryptionKey($userId);
 		return Password::verify(new HiddenString($password . $salt), new HiddenString($hash), $encKey);
 	}
@@ -104,10 +106,13 @@ class CryptService {
 	 * @param  $salt    
 	 * @return string public key        
 	 */
-	public function generateKeyPair($password, $salt) {
+	public function generateKeyPair($password, $salt, $storePrivate = true) {
+		$salt = base64_decode($salt);
 		$userKeyPair = KeyFactory::deriveEncryptionKeyPair(new HiddenString($password), $salt, KeyFactory::SENSITIVE);
-		$this->session->set('spwm_private_key', $userKeyPair->getSecretKey()->getRawKeyMaterial());
-		return $userKeyPair->getPublicKey();
+		if($storePrivate) {
+			$this->session->set('spwm_private_key', base64_encode($userKeyPair->getSecretKey()->getRawKeyMaterial()));
+		}
+		return base64_encode($userKeyPair->getPublicKey());
 	}
 
 	/**
@@ -115,7 +120,7 @@ class CryptService {
 	 * @return string key
 	 */
 	public function generateGroupKey() {
-		return KeyFactory::generateEncryptionKey()->getRawKeyMaterial();
+		return base64_encode(KeyFactory::generateEncryptionKey()->getRawKeyMaterial());
 	}
 
 	/**
@@ -125,6 +130,7 @@ class CryptService {
 	 * @return string BASE64 sealed key               
 	 */
 	public function sealGroupKey($groupKey, $userPublicKey) {
+		$userPublicKey = base64_decode($userPublicKey);
 		return Asym::seal(new HiddenString($groupKey), new EncryptionPublicKey(new HiddenString($userPublicKey)));
 	}
 
@@ -134,7 +140,7 @@ class CryptService {
 	 * @return string                 
 	 */
 	public function unsealGroupKey($sealedGroupKey) {
-		return Asym::unseal($sealedGroupKey, new EncryptionSecretKey(new HiddenString($this->session->get('spwm_private_key'))));
+		return Asym::unseal($sealedGroupKey, new EncryptionSecretKey(new HiddenString(base64_decode($this->session->get('spwm_private_key')))));
 	}
 
 	/**
@@ -144,6 +150,7 @@ class CryptService {
 	 * @return string BASE64 encrypted password         
 	 */
 	public function encryptItemPassword($password, $groupKey) {
+		$groupKey = base64_decode($groupKey);
 		return Sym::encrypt(new HiddenString($password), new EncryptionKey(new HiddenString($groupKey)));
 	}
 
@@ -154,6 +161,7 @@ class CryptService {
 	 * @return string password          
 	 */
 	public function decryptItemPassword($cipher, $groupKey) {
+		$groupKey = base64_decode($groupKey);
 		return Sym::decrypt($cipher, new EncryptionKey(new HiddenString($groupKey)));
 	}
 }

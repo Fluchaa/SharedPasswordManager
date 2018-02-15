@@ -26,6 +26,8 @@ use OCA\Spwm\Controller\AdminController;
 use OCA\Spwm\Service\SettingsService;
 use OCA\Spwm\Service\AdminService;
 use OCA\Spwm\Service\CryptService;
+use OCA\Spwm\Service\AuthenticationService;
+use OCA\Spwm\Utility\Utils;
 
 class Application extends App {
 	public function __construct(array $urlParams=array()) {
@@ -44,5 +46,7 @@ class Application extends App {
 		$container->registerAlias('SettingsService', SettingsService::class);
 		$container->registerAlias('AdminService', AdminService::class);
 		$container->registerAlias('CryptService', CryptService::class);
+		$container->registerAlias('AuthenticationService', AuthenticationService::class);
+		$container->registerAlias('Utils', Utils::class);
 	}
 }

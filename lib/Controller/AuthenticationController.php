@@ -18,25 +18,20 @@
 namespace OCA\Spwm\Controller;
 
 use OCP\IRequest;
-use OCP\ISession;
 
-use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http\JSONResponse;
-use OCP\AppFramework\Controller;
+use OCP\AppFramework\ApiController;
 
-use OCA\Spwm\Db\Authentication;
+use OCA\Spwm\Service\AuthenticationService;
 
-class AuthenticationController extends Controller {
+class AuthenticationController extends ApiController {
 	private $userId;
-	private $session;
-	private $authentication;
-	private $urlGenerator;
+	private $auth;
 
-	public function __construct($AppName, IRequest $request, ISession $session, $UserId, Authentication $authentication) {
-		parent::__construct($AppName, $request);
+	public function __construct($AppName, IRequest $request, AuthenticationService $auth, $UserId) {
+		parent::__construct($AppName, $request, 'GET, POST, DELETE, PUT, PATCH, OPTIONS', 'Authorization, Content-Type, Accept', 86400);
 		$this->userId = $UserId;
-		$this->session = $session;
-		$this->authentication = $authentication;
+		$this->auth = $auth;
 	}
 
 	/**
@@ -46,13 +41,7 @@ class AuthenticationController extends Controller {
 	 * @return JSONResponse
 	 */
 	public function unlock($password) {
-		if($this->authentication->unlock($this->userId, $password) == 1) {
-			$response['type'] = 'success';
-			$response['message'] = 'Eingeloggt';
-		} else {
-			$response['type'] = 'error';
-			$response['message'] = 'Fehler';
-		}
+		$response = $this->auth->unlock($password);
 		return new JSONResponse($response);
 	}
 }

@@ -54,7 +54,7 @@ class AdminController extends ApiController {
 	}
 
 	/**
-	 * add User
+	 * add User from Admin Page
 	 */
 	public function addUser($userId, $password) {
 		$response = $this->admin->addUser($userId, $password);

@@ -24,17 +24,24 @@ use \OCP\AppFramework\Db\Entity;
 class UserKey extends Entity implements JsonSerializable {
 	protected $userId;
 	protected $unlockkey;
-	protected $privatekey;
 	protected $publickey;
-	protected $unlocksalt;
+	protected $salt;
+	protected $created;
+	protected $lastAccess;
+
+	public function __construct() {
+		$this->addType('created', 'integer');
+		$this->addType('lastAccess', 'integer');
+	}
 
 	public function jsonSerialize() {
 		return [
 			'user_id' => $this->userId,
 			'unlockkey' => $this->unlockkey,
-			'privatekey' => $this->privatekey,
 			'publickey' => $this->publickey,
-			'unlocksalt' => $this->unlocksalt
+			'salt' => $this->salt,
+			'created' => $this->created,
+			'last_access' => $this->lastAccess
 		];
 	}
 }
