@@ -25,15 +25,18 @@ use OCA\Spwm\Db\UserKeyMapper;
 
 class AdminService {
 	private $userKeyMapper;
+	private $crypt;
 
-	public function __construct(UserKeyMapper $UserKeyMapper) {
-		$this->userKeyMapper = $UserKeyMapper;
+	public function __construct(UserKeyMapper $userKeyMapper, CryptService $crypt) {
+		$this->userKeyMapper = $userKeyMapper;
+		$this->crypt = $crypt;
 	}
 
 	/**
 	 * add User
 	 */
 	public function addUser($userId, $password) {
-		return $this->userKeyMapper->create($userId, $password);
+		return $this->crypt->getLoginHash(1,1);
+		//return $this->userKeyMapper->create($userId, $password);
 	}
 }
