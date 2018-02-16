@@ -101,32 +101,32 @@
         <declaration>
             <field>
                 <name>item_id</name>
-                <type>integer</type>
+                <type>text</type>
                 <notnull>true</notnull>
-                <autoincrement>true</autoincrement>
-                <length>4</length>
+                <length>64</length>
                 <primary>true</primary>
             </field>
             <field>
-                <name>name</name>
+                <name>label</name>
                 <type>text</type>
                 <notnull>true</notnull>
                 <length>255</length>
             </field>
             <field>
                 <name>username</name>
-                <type>text</type>
-                <length>255</length>
+                <type>clob</type>
             </field>
             <field>
                 <name>email</name>
-                <type>text</type>
-                <length>255</length>
+                <type>clob</type>
             </field>
             <field>
-                <name>urlip</name>
-                <type>text</type>
-                <length>255</length>
+                <name>url</name>
+                <type>clob</type>
+            </field>
+            <field>
+                <name>ip</name>
+                <type>clob</type>
             </field>
             <field>
                 <name>description</name>
@@ -139,9 +139,9 @@
         <declaration>
             <field>
                 <name>item_id</name>
-                <type>integer</type>
+                <type>text</type>
                 <notnull>true</notnull>
-                <length>4</length>
+                <length>64</length>
             </field>
             <field>
                 <name>created</name>
@@ -199,9 +199,9 @@
             </field>
             <field>
                 <name>item_id</name>
-                <type>integer</type>
+                <type>text</type>
                 <notnull>true</notnull>
-                <length>4</length>
+                <length>64</length>
             </field>
             <index>
                 <name>primary</name>

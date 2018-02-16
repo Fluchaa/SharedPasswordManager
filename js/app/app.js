@@ -26,7 +26,7 @@
 			controller: 'UnlockCtrl'
 		}).when('/vault', {
 			templateUrl: 'views/vault.html',
-			controller: 'VaultCtrl'
+			controller: 'CredentialCtrl'
 		}).otherwise({
 			redirectTo: '/'
 		});

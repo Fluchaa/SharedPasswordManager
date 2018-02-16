@@ -5,7 +5,7 @@
     <name>Shared Password Manager</name>
     <summary>Share passwords with multiple Users</summary>
     <description><![CDATA[A password manager included in nextcloud to share passwords to groups]]></description>
-    <version>0.0.8</version>
+    <version>0.0.9</version>
     <licence>agpl</licence>
     <author mail="michael.flucher@gmail.com" >Michael Flucher</author>
     <namespace>Spwm</namespace>

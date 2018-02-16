@@ -149,9 +149,9 @@ class CryptService {
 	 * @param  $groupKey
 	 * @return string BASE64 encrypted password         
 	 */
-	public function encryptItemPassword($password, $groupKey) {
+	public function encryptItemField($field, $groupKey) {
 		$groupKey = base64_decode($groupKey);
-		return Sym::encrypt(new HiddenString($password), new EncryptionKey(new HiddenString($groupKey)));
+		return Sym::encrypt(new HiddenString($field), new EncryptionKey(new HiddenString($groupKey)));
 	}
 
 	/**
@@ -160,7 +160,7 @@ class CryptService {
 	 * @param  $groupKey 
 	 * @return string password          
 	 */
-	public function decryptItemPassword($cipher, $groupKey) {
+	public function decryptItemField($cipher, $groupKey) {
 		$groupKey = base64_decode($groupKey);
 		return Sym::decrypt($cipher, new EncryptionKey(new HiddenString($groupKey)));
 	}

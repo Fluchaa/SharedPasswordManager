@@ -22,8 +22,11 @@ script('spwm', 'templates');
 script('spwm', 'app/app');
 script('spwm', 'app/controller/main');
 script('spwm', 'app/controller/unlock');
+script('spwm', 'app/controller/credential');
+script('spwm', 'app/controller/menu');
 script('spwm', 'app/directive/vaultlock');
 script('spwm', 'app/service/unlock');
+script('spwm', 'app/service/credential');
 
 
 style('spwm', 'vendor/fontawesome-all.min');
@@ -39,9 +42,18 @@ style('spwm', 'app');
 		</p>
 		<i class="fas fa-times btn-close" alt="Close" ng-click="setHttpWarning(true)"></i>
 	</div>
-	<div id="app-navigation">
 
+	<div id="app-navigation" ng-show="unlocked" ng-controller="MenuCtrl">
+		<ul>
+			<li>
+				<a ng-href="#/vault/cat1">Cat1</a>
+			</li>
+			<li>
+				<a ng-href="#/vault/cat2">Cat2</a>
+			</li>
+		</ul>
 	</div>
+
 	<div id="app-content">
 		<div id="app-content-wrapper">
 			<div id="content" ng-view="">

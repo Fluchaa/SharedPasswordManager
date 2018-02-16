@@ -3,13 +3,18 @@
 
 	angular.module('spwm').controller('UnlockCtrl',
 		function($scope, $rootScope, UnlockService, $location) {
+			// Check if already logged in
+			if($rootScope.unlocked) {
+				$location.path('/vault');
+			}
+
 			// Alert Stuff
 			$scope.alert_hidden = true;
 			$scope.setAlertHidden = function(state) {
 				$scope.alert_hidden = state;
 			};
 
-			//Unlock Vault
+			// Unlock Vault
 			$scope.unlockVault = function() {
 				console.log('button trigger');
 				UnlockService.unlock($scope.password).then(
@@ -19,15 +24,13 @@
 					$scope.alert_hidden = false;
 					
 					if(response.data.type === 'success') {
-						console.log('success');
-						setTimeout(function() {
-							$location.path('/vault');
-						}, 1000);
+						$rootScope.unlocked = true;
+						$location.path('/vault');
 					}
 				}, function errorCallback(response) {
 					console.log('error');
 					console.log(response);
 				});
-			};
+			};		
 		});
 }());
