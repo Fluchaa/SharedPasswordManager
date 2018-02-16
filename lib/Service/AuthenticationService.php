@@ -36,11 +36,19 @@ class AuthenticationService {
 		$this->crypt = $crypt;
 	}
 
+	/**
+	 * get password hash and check it
+	 * @param  $password
+	 * @return Array 
+	 */
 	public function unlock($password) {
 		try {
 			$userKey = $this->userKeyMapper->find($this->userId);
 
 			if($this->crypt->checkLoginHash($password, $userKey->getSalt(), $userKey->getUnlockkey(), $this->userId)) {
+				// Store private key in session
+				$this->crypt->generateKeyPair($password, $userKey->getSalt());
+
 				return [
 					'type' => 'success',
 					'message' => 'Login successful'
@@ -58,4 +66,10 @@ class AuthenticationService {
 			];
 		}
 	}
+
+	public function lock() {
+		/* TODO */
+	}
+
+
 }

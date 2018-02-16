@@ -17,6 +17,8 @@
 
 namespace OCA\Spwm\Service;
 
+use OCA\Spwm\Db\Item;
+
 use OCP\ISession;
 
 use \ParagonIE\Halite\HiddenString;
@@ -104,12 +106,13 @@ class CryptService {
 	 * private key is stored in session, public key is returned
 	 * @param  $password
 	 * @param  $salt    
+	 * @param  $login
 	 * @return string public key        
 	 */
-	public function generateKeyPair($password, $salt, $storePrivate = true) {
+	public function generateKeyPair($password, $salt, $login = true) {
 		$salt = base64_decode($salt);
 		$userKeyPair = KeyFactory::deriveEncryptionKeyPair(new HiddenString($password), $salt, KeyFactory::SENSITIVE);
-		if($storePrivate) {
+		if($login) {
 			$this->session->set('spwm_private_key', base64_encode($userKeyPair->getSecretKey()->getRawKeyMaterial()));
 		}
 		return base64_encode($userKeyPair->getPublicKey());
@@ -145,13 +148,13 @@ class CryptService {
 
 	/**
 	 * encrypt item password with group key, ready to store in DB
-	 * @param  $password
+	 * @param  $value
 	 * @param  $groupKey
 	 * @return string BASE64 encrypted password         
 	 */
-	public function encryptItemField($field, $groupKey) {
+	public function encryptItemField($value, $groupKey) {
 		$groupKey = base64_decode($groupKey);
-		return Sym::encrypt(new HiddenString($field), new EncryptionKey(new HiddenString($groupKey)));
+		return Sym::encrypt(new HiddenString($value), new EncryptionKey(new HiddenString($groupKey)));
 	}
 
 	/**
@@ -163,5 +166,61 @@ class CryptService {
 	public function decryptItemField($cipher, $groupKey) {
 		$groupKey = base64_decode($groupKey);
 		return Sym::decrypt($cipher, new EncryptionKey(new HiddenString($groupKey)));
+	}
+
+	/**
+	 * encrypt credential using groupkey
+	 * @param  $credential 
+	 * @param  $groupKey
+	 * @return $credential
+	 */
+	public function encryptCredential($credential, $groupKey) {
+		if(!is_null($credential['username']))
+			$credential['username'] = $this->encryptItemField($credential['username'], $groupKey);
+
+		if(!is_null($credential['email']))
+			$credential['email'] = $this->encryptItemField($credential['email'], $groupKey);
+
+		if(!is_null($credential['description']))
+			$credential['description'] = $this->encryptItemField($credential['description'], $groupKey);
+
+		if(!is_null($credential['url']))
+			$credential['url'] = $this->encryptItemField($credential['url'], $groupKey);
+
+		if(!is_null($credential['ip']))
+			$credential['ip'] = $this->encryptItemField($credential['ip'], $groupKey);
+
+		if(!is_null($credential['password']))
+			$credential['password'] = $this->encryptItemField($credential['password'], $groupKey);
+
+		return $credential;
+	}
+
+	/**
+	 * decrypt the item before send it back to front end
+	 * @param  $credential Item Entity
+	 * @param  $groupKey
+	 * @return Item Entity
+	 */
+	public function decryptCredential($credential, $groupKey) {
+		if(!is_null($credential->getUsername()))
+			$credential->setUsername($this->decryptItemField($credential->getUsername(), $groupKey));
+
+		if(!is_null($credential->getEmail()))
+			$credential->setEmail($this->decryptItemField($credential->getEmail(), $groupKey));
+
+		if(!is_null($credential->getDescription()))
+			$credential->setDescription($this->decryptItemField($credential->getDescription(), $groupKey));
+
+		if(!is_null($credential->getUrl()))
+			$credential->setUrl($this->decryptItemField($credential->getUrl(), $groupKey));
+
+		if(!is_null($credential->getIp()))
+			$credential->setIp($this->decryptItemField($credential->getIp(), $groupKey));
+
+		if(!is_null($credential->getPassword()))
+			$credential->setPassword($this->decryptItemField($credential->getPassword(), $groupKey));
+
+		return $credential;
 	}
 }

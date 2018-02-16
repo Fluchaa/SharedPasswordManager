@@ -11,8 +11,9 @@ return [
 	'routes' => [
 		['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
 
-		// Unlock
+		// Authentication
 		['name' => 'authentication#unlock', 'url' => '/api/v1/unlock', 'verb' => 'POST'],
+		// Todo: lock => delete session value
 
 		// Settings
 		['name' => 'settings#getSettings', 'url' => '/api/v1/settings', 'verb' => 'GET'],
@@ -20,7 +21,10 @@ return [
 
 		// Admin
 		['name' => 'admin#searchUser', 'url' => '/admin/search', 'verb' => 'GET'],
-		['name' => 'admin#addUser', 'url' => '/admin/add/{userId}', 'verb' => 'POST']
-		/*['name' => 'settings#generatePepper', 'url' => '/api/v1/settings/firstrun', 'verb' => 'GET']*/
+		['name' => 'admin#addUser', 'url' => '/admin/add/{userId}', 'verb' => 'POST'],
+		
+		// Credential
+		['name' => 'credential#createCredential', 'url' => '/api/v1/credential', 'verb' => 'POST'],
+		['name' => 'credential#getCredential', 'url' => '/api/v1/credential/{item_id}', 'verb' => 'GET'],
     ]
 ];

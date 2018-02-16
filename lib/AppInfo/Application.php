@@ -23,10 +23,13 @@ use OCP\IConfig;
 
 use OCA\Spwm\Controller\PageController;
 use OCA\Spwm\Controller\AdminController;
+use OCA\Spwm\Controller\AuthenticationController;
+use OCA\Spwm\Controller\CredentialController;
 use OCA\Spwm\Service\SettingsService;
 use OCA\Spwm\Service\AdminService;
 use OCA\Spwm\Service\CryptService;
 use OCA\Spwm\Service\AuthenticationService;
+use OCA\Spwm\Service\CredentialService;
 use OCA\Spwm\Utility\Utils;
 
 class Application extends App {
@@ -43,10 +46,13 @@ class Application extends App {
 
 		$container->registerAlias('PageController', PageController::class);
 		$container->registerAlias('AdminController', AdminController::class);
+		$container->registerAlias('AuthenticationController', AuthenticationController::class);
+		$container->registerAlias('CredentialController', CredentialController::class);
 		$container->registerAlias('SettingsService', SettingsService::class);
 		$container->registerAlias('AdminService', AdminService::class);
 		$container->registerAlias('CryptService', CryptService::class);
 		$container->registerAlias('AuthenticationService', AuthenticationService::class);
+		$container->registerAlias('CredentialService', CredentialService::class);
 		$container->registerAlias('Utils', Utils::class);
 	}
 }

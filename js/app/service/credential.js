@@ -12,7 +12,9 @@
 				email: null,
 				url: null,
 				ip: null,
-				description: null
+				description: null,
+				group_id: null,
+				category_id: null
 			};
 
 			return {
@@ -21,7 +23,7 @@
 				},
 				createCredential: function(credential) {
 					var queryUrl = OC.generateUrl('/apps/spwm/api/v1/credential');
-					return $http.post(queryUrl, credential).then(function(response) {
+					return $http.post(queryUrl, {credential: JSON.stringify(credential)}).then(function(response) {
 						if(response.data) {
 							return response.data;
 						} else {

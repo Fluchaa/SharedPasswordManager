@@ -22,42 +22,38 @@ use OCP\AppFramework\Db\Mapper;
 
 use OCA\Spwm\Utility\Utils;
 
-class UserKeyMapper extends Mapper {
+class GroupUserMapper extends Mapper {
 	private $utils;
 
 	public function __construct(IDBConnection $db, Utils $utils) {
-		parent::__construct($db, 'spwm_userkey');
+		parent::__construct($db, 'spwm_groupuser');
 		$this->utils = $utils;
 	}
 
 	/**
-	 * Get UserKey Entity of User
+	 * Get GroupUser Entity of User
 	 * @throws DoesNotExistException if no entry is found
 	 * @throws MultipleObjectsReturnedException if more than one result
 	 * @param  $user_id
-	 * @return UserKey
+	 * @return GroupUser
 	 */
-	public function find($userId) {
-		$sql = 'SELECT * FROM `*PREFIX*spwm_userkey` WHERE `user_id` = ?';
-		return $this->findEntity($sql, [$userId]);
+	public function find($groupId, $userId) {
+		$sql = 'SELECT * FROM `*PREFIX*spwm_groupuser` WHERE `group_id` = ? AND `user_id` = ?';
+		return $this->findEntity($sql, [$groupId, $userId]);
 	}
 
 	/**
-	 * Create UserKey (Login) Entry
-	 * @param  $userId    
-	 * @param  $hash      
-	 * @param  $publicKey 
-	 * @param  $salt      
-	 * @return UserKey inserted Entity        
+	 * Create GroupUser Entity
+	 * @param  $groupId
+	 * @param  $userId     
+	 * @param  $key
+	 * @return GroupUser inserted Entity        
 	 */
-	public function create($userId, $hash, $publicKey, $salt) {
-		$userKey = new UserKey();
+	public function create($groupId, $userId, $key) {
+		$groupUser = new GroupUser();
+		$userKey->setGroupId($groupId);
 		$userKey->setUserId($userId);
-		$userKey->setUnlockkey($hash);
-		$userKey->setPublickey($publicKey);
-		$userKey->setSalt($salt);
-		$userKey->setCreated($this->utils->getTime());
-		$userKey->setLastAccess(0);
-		return parent::insert($userKey);
+		$userKey->setGroupkey($key);
+		return parent::insert($groupUser);
 	}
 }
