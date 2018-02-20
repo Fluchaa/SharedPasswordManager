@@ -39,10 +39,10 @@ class AdminController extends ApiController {
 	 * @param  $query
 	 * @return Array of usernames
 	 */
-	public function searchUser($query) {
+	public function searchUser($term) {
 		$userManager = \OC::$server->getUserManager();
 		$response = [];
-		$searchResult = $userManager->search($query);
+		$searchResult = $userManager->search($term);
 
 		foreach($searchResult as $user) {
 			$response[] = [
@@ -54,10 +54,45 @@ class AdminController extends ApiController {
 	}
 
 	/**
+	 * @NoCSRFRequired remove after
 	 * add User from Admin Page
+	 * @param  $userId
+	 * @param  $password
+	 * @return JSONResponse
 	 */
 	public function addUser($userId, $password) {
 		$response = $this->admin->addUser($userId, $password);
+		return new JSONResponse($response);
+	}
+
+	/**
+	 * @NoCSRFRequired remove after
+	 * get all registered users
+	 * @return JSONResponse
+	 */
+	public function getUsers() {
+		$response = $this->admin->getUsers();
+		return new JSONResponse($response);
+	}
+
+	/**
+	 * @NoCSRFRequired remove after
+	 * get all groups
+	 * @return JSONResponse
+	 */
+	public function getGroups() {
+		$response = $this->admin->getGroups();
+		return new JSONResponse($response);
+	}
+
+	/**
+	 * @NoCSRFRequired remove after
+	 * add group
+	 * @param  $name
+	 * @return JSONResponse
+	 */
+	public function addGroup($name) {
+		$response = $this->admin->addGroup($this->userId, $name);
 		return new JSONResponse($response);
 	}
 }

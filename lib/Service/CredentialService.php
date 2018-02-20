@@ -22,6 +22,8 @@ use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 
 use OCA\Spwm\Db\Item;
 use OCA\Spwm\Db\ItemMapper;
+use OCA\Spwm\Db\ItemPassword;
+use OCA\Spwm\Db\ItemPasswordMapper;
 use OCA\Spwm\Db\GroupUser;
 use OCA\Spwm\Db\GroupUserMapper;
 

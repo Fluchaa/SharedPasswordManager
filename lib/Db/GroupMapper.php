@@ -22,51 +22,55 @@ use OCP\AppFramework\Db\Mapper;
 
 use OCA\Spwm\Utility\Utils;
 
-class UserKeyMapper extends Mapper {
+class GroupMapper extends Mapper {
 	private $utils;
 
 	public function __construct(IDBConnection $db, Utils $utils) {
-		parent::__construct($db, 'spwm_userkey');
+		parent::__construct($db, 'spwm_group');
 		$this->utils = $utils;
 	}
 
 	/**
-	 * Get UserKey Entity of User
+	 * Get Group Entity
 	 * @throws DoesNotExistException if no entry is found
 	 * @throws MultipleObjectsReturnedException if more than one result
-	 * @param  $user_id
-	 * @return UserKey
+	 * @param  $groupId
+	 * @return Group
 	 */
-	public function find($userId) {
-		$sql = 'SELECT * FROM `*PREFIX*spwm_userkey` WHERE `user_id` = ?';
-		return $this->findEntity($sql, [$userId]);
+	public function find($groupId) {
+		$sql = 'SELECT * FROM `*PREFIX*spwm_group` WHERE `group_id` = ?';
+		return $this->findEntity($sql, [$groupId]);
 	}
 
 	/**
-	 * Create UserKey (Login) Entry
-	 * @param  $userId    
-	 * @param  $hash      
-	 * @param  $publicKey 
-	 * @param  $salt      
-	 * @return UserKey inserted Entity        
+	 * Get Group Entity
+	 * @throws DoesNotExistException if no entry is found
+	 * @throws MultipleObjectsReturnedException if more than one result
+	 * @param  $name
+	 * @return Group
 	 */
-	public function create($userId, $hash, $publicKey, $salt) {
-		$userKey = new UserKey();
-		$userKey->setUserId($userId);
-		$userKey->setUnlockkey($hash);
-		$userKey->setPublickey($publicKey);
-		$userKey->setSalt($salt);
-		$userKey->setCreated($this->utils->getTime());
-		$userKey->setLastAccess(0);
-		return parent::insert($userKey);
+	public function findName($name) {
+		$sql = 'SELECT * FROM `*PREFIX*spwm_group` WHERE `name` = ?';
+		return $this->findEntity($sql, [$name]);
 	}
 
 	/**
-	 * get all Entries
-	 * @return UserKey[]
+	 * Create Group Entity
+	 * @param  $name
+	 * @return Group inserted Entity        
 	 */
-	public function getUsers() {
-		$sql = 'SELECT * FROM `*PREFIX*spwm_userkey`';
+	public function create($name) {
+		$group = new Group();
+		$group->setName($name);
+		return parent::insert($group);
+	}
+
+	/**
+	 * get all groups
+	 * @return Group[]
+	 */
+	public function getGroups() {
+		$sql = 'SELECT * FROM `*PREFIX*spwm_group`';
 		return $this->findEntities($sql);
 	}
 }

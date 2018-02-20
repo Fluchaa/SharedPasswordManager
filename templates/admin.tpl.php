@@ -24,32 +24,70 @@ style('spwm', 'vendor/fontawesome-all.min');
 ?>
 <div id="spwm-admin-settings" class="section">
 	<h2>Shared Password Manager</h2>
+	<div id="spwm-alert"></div>
 	<div id="spwm-tabs">
 		<ul>
 			<li>
-				<a href="#general">General</a>
-			</li>
-			<li>
 				<a href="#users">Users</a>
 			</li>
-			<li>
+			<li style="display:none">
+				<a href="#edit-user">Edit User</a>
+			</li>
+			<li id="groups-link" style="display:none">
 				<a href="#groups">Groups</a>
 			</li>
 		</ul>
-		<div id="general">
-			<label for="spwm_pepper">Application's Pepper</label>
-			<input type="text" name="spwm_pepper" id="spwm_pepper" />
-		</div>
 		<div id="users">
 			<h3>Add User for Access</h3>
 			<label for="spwm_add_username">Username</label>
 			<input type="text" name="spwm_add_username" id="spwm_add_username" />
 			<label for="spwm_add_password">Password</label>
 			<input type="password" name="spwm_add_password" id="spwm_add_password" />
-			<button id="spwm_add_button">Add</button>
+			<button id="spwm_add_user_button">Add</button>
+
+			<h3>List of current Users</h3>
+			<table id="users_table" class="table">
+				<thead>
+					<tr>
+						<th>UserID</th>
+						<th>Name</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+
+				</tbody>
+			</table>
+			<div id="user_table_pagination">
+				<ul class="pagination">
+				</ul>
+			</div>
+		</div>
+		<div id="edit-user">
+			
 		</div>
 		<div id="groups">
+			<h3>Add Groups</h3>
+			<label for="spwm_add_group">Group</label>
+			<input type="text" name="spwm_add_group" id="spwm_add_group" />
+			<button id="spwm_add_group_button">Add</button>
 
+			<h3>List of Groups</h3>
+			<table id="groups_table" class="table">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+
+				</tbody>
+			</table>
+			<div id="groups_table_pagination">
+				<ul class="pagination">
+				</ul>
+			</div>
 		</div>
 	</div>
 </div>

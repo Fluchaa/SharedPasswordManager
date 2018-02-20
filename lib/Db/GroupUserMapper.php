@@ -34,7 +34,8 @@ class GroupUserMapper extends Mapper {
 	 * Get GroupUser Entity of User
 	 * @throws DoesNotExistException if no entry is found
 	 * @throws MultipleObjectsReturnedException if more than one result
-	 * @param  $user_id
+	 * @param  $groupId
+	 * @param  $userId
 	 * @return GroupUser
 	 */
 	public function find($groupId, $userId) {
@@ -51,9 +52,9 @@ class GroupUserMapper extends Mapper {
 	 */
 	public function create($groupId, $userId, $key) {
 		$groupUser = new GroupUser();
-		$userKey->setGroupId($groupId);
-		$userKey->setUserId($userId);
-		$userKey->setGroupkey($key);
+		$groupUser->setGroupId($groupId);
+		$groupUser->setUserId($userId);
+		$groupUser->setGroupkey($key);
 		return parent::insert($groupUser);
 	}
 }

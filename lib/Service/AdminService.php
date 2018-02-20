@@ -22,6 +22,10 @@ use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 
 use OCA\Spwm\Db\UserKey;
 use OCA\Spwm\Db\UserKeyMapper;
+use OCA\Spwm\Db\Group;
+use OCA\Spwm\Db\GroupMapper;
+use OCA\Spwm\Db\GroupUser;
+use OCA\Spwm\Db\GroupUserMapper;
 
 use OCA\Spwm\Service\CryptService;
 use OCA\Spwm\Utility\Utils;
@@ -30,11 +34,15 @@ class AdminService {
 	private $userKeyMapper;
 	private $crypt;
 	private $utils;
+	private $groupMapper;
+	private $groupUserMapper;
 
-	public function __construct(UserKeyMapper $userKeyMapper, CryptService $crypt, Utils $utils) {
+	public function __construct(UserKeyMapper $userKeyMapper, CryptService $crypt, Utils $utils, GroupMapper $groupMapper, GroupUserMapper $groupUserMapper) {
 		$this->userKeyMapper = $userKeyMapper;
 		$this->crypt = $crypt;
 		$this->utils = $utils;
+		$this->groupMapper = $groupMapper;
+		$this->groupUserMapper = $groupUserMapper;
 	}
 
 	/**
@@ -59,7 +67,11 @@ class AdminService {
 					if($this->userKeyMapper->create($userId, $hash, $pubKey, $salt)) {
 						return [
 							'type' => 'success',
-							'message' => 'User added successful'
+							'message' => 'User added successful',
+							'user' => [
+								'user_id' => $userId,
+								'username' => $this->utils->getNameByUserId($userId)
+							]
 						];
 					}
 					return [
@@ -79,5 +91,94 @@ class AdminService {
 			'type' => 'error',
 			'message' => 'User does not exist'
 		];
+	}
+
+	/**
+	 * get Users
+	 */
+	public function getUsers() {
+		try {
+			$users = $this->userKeyMapper->getUsers();
+
+			$response = [];
+			foreach($users as $user) {
+				$response[] = [
+					'user_id' => $user->getUserId(),
+					'username' => $this->utils->getNameByUserId($user->getUserId())
+				];
+			}
+
+			return $response;
+		} catch(DoesNotExistException $e) {
+			return null;
+		}
+	}
+
+	/**
+	 * get Groups
+	 */
+	public function getGroups() {
+		try {
+			$groups = $this->groupMapper->getGroups();
+
+			$response = [];
+			foreach($groups as $group) {
+				$response[] = [
+					'group_id' => $group->getGroupId(),
+					'name' => $group->getName()
+				];
+			}
+
+			return $response;
+		} catch(DoesNotExistException $e) {
+			return null;
+		}
+	}
+
+	/**
+	 * add group
+	 */
+	public function addGroup($userId, $name) {
+		try {
+			$this->groupMapper->findName($name);
+			return [
+				'type' => 'error',
+				'message' => 'Group name already used'
+			];
+		} catch(DoesNotExistException $e) {
+			try {
+				// create group
+				$group = $this->groupMapper->create($name);
+
+				// generate data
+				$groupKey = $this->crypt->generateGroupKey();
+				$publicKey = $this->userKeyMapper->find($userId)->getPublickey();
+				$grpKeySealed = $this->crypt->sealGroupKey($groupKey, $publicKey);
+
+				// create usergroup entity
+				$groupUser = $this->groupUserMapper->create($group->getId(), $userId, $grpKeySealed);
+
+				if($groupUser) {
+					return [
+						'type' => 'success',
+						'message' => 'Group created successful',
+						'group' => [
+							'group_id' => $group->getId(),
+							'name' => $group->getName()
+						]
+					];
+				}
+				return [
+					'type' => 'error',
+					'message' => 'Error on Database insert'
+				];
+
+			} catch(Exception $e) {
+				return [
+					'type' => 'error',
+					'message' => 'Error during group creation'
+				];
+			}
+		}
 	}
 }

@@ -38,9 +38,13 @@ class Utils {
 	 * @return string
 	 */
 	public static function getNameByUserId($userId) {
-		$um = \OC::$server->getUserManager();
-		$u = $um->get($userId);
-		return $u->getDisplayName();
+		if(!is_null($userId)) {
+			$um = \OC::$server->getUserManager();
+			$u = $um->get($userId);
+			if(!is_null($u))
+				return $u->getDisplayName();
+		}
+		return null;
 	}
 
 	/**

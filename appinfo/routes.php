@@ -20,8 +20,11 @@ return [
 		['name' => 'settings#saveAdminSetting', 'url' => '/api/v1/settings/admin/{key}', 'verb' => 'POST'],
 
 		// Admin
-		['name' => 'admin#searchUser', 'url' => '/admin/search', 'verb' => 'GET'],
-		['name' => 'admin#addUser', 'url' => '/admin/add/{userId}', 'verb' => 'POST'],
+		['name' => 'admin#searchUser', 'url' => '/admin/users/search', 'verb' => 'GET'],
+		['name' => 'admin#addUser', 'url' => '/admin/users/add/{userId}', 'verb' => 'POST'],
+		['name' => 'admin#getUsers', 'url' => '/admin/users', 'verb' => 'GET'],
+		['name' => 'admin#getGroups', 'url' => '/admin/groups', 'verb' => 'GET'],
+		['name' => 'admin#addGroup', 'url' => '/admin/groups/add/{name}', 'verb' => 'POST'],
 		
 		// Credential
 		['name' => 'credential#createCredential', 'url' => '/api/v1/credential', 'verb' => 'POST'],
