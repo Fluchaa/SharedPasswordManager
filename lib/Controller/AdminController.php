@@ -95,4 +95,36 @@ class AdminController extends ApiController {
 		$response = $this->admin->addGroup($this->userId, $name);
 		return new JSONResponse($response);
 	}
+
+	/**
+	 * @NoCSRFRequired remove after
+	 * get all categories
+	 * @return JSONResponse
+	 */
+	public function getCategories() {
+		$response = $this->admin->getCategories();
+		return new JSONResponse($response);
+	}
+
+	/**
+	 * @NoCSRFRequired remove after
+	 * add category
+	 * @param  $name
+	 * @return JSONResponse
+	 */
+	public function addCategory($name) {
+		$response = $this->admin->addCategory($name);
+		return new JSONResponse($response);
+	}
+
+	/**
+	 * @NoCSRFRequired remove after
+	 * get groups of user
+	 * @param  $userId
+	 * @return JSONResponse
+	 */
+	public function getGroupsOfUser($userId) {
+		$response = $this->admin->getGroupsOfUser($userId);
+		return new JSONResponse($response);
+	}
 }

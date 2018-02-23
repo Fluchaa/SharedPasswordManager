@@ -55,4 +55,13 @@ class Utils {
 		$um = \OC::$server->getUserManager();
 		return $um->userExists($userId);
 	}
+
+	/**
+	 * @param  $userId
+	 * @return bool
+	 */
+	public static function isAdmin($userId) {
+		$gm = \OC::$server->getGroupManager();
+		return $gm->isAdmin($userId);
+	}
 }

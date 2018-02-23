@@ -22,38 +22,33 @@ use OCP\IRequest;
 use OCP\AppFramework\Http\JSONResponse;
 use OCP\AppFramework\ApiController;
 
-use OCA\Spwm\Service\AuthenticationService;
+use OCA\Spwm\Service\DataService;
 
-class AuthenticationController extends ApiController {
+class DataController extends ApiController {
 	private $userId;
-	private $auth;
+	private $data;
 
-	public function __construct($AppName, IRequest $request, AuthenticationService $auth, $UserId) {
+	public function __construct($AppName, IRequest $request, DataService $data, $UserId) {
 		parent::__construct($AppName, $request, 'GET, POST, DELETE, PUT, PATCH, OPTIONS', 'Authorization, Content-Type, Accept', 86400);
 		$this->userId = $UserId;
-		$this->auth = $auth;
+		$this->data = $data;
 	}
 
 	/**
 	 * @NoAdminRequired
-	 * @UseSession
-	 * 
-	 * @param  $password
-	 * @return JSONResponse
+	 * @NoCSRFRequired to be deleted
 	 */
-	public function unlock($password) {
-		$response = $this->auth->unlock($password);
+	public function getCategories() {
+		$response = $this->data->getCategories();
 		return new JSONResponse($response);
 	}
 
 	/**
 	 * @NoAdminRequired
-	 * 
-	 * @return JSONResponse
+	 * @NoCSRFRequired to be deleted
 	 */
-	public function lock() {
-		/* TODO */
-		//$response = $this->auth->unlock($password);
+	public function getGroups() {
+		$response = $this->data->getGroups();
 		return new JSONResponse($response);
 	}
 }

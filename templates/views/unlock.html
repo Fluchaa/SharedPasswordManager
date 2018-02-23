@@ -12,7 +12,7 @@
 						<label for="unlockPassword">Unlock your Vault</label>
 					</div>
 					<div class="box">
-						<input type="password" name="unlockPassword" id="unlockPassword" class="form-control" ng-keyup="($event.keyCode == 13) ? unlockVault() : return" ng-model="password" />
+						<input type="password" name="unlockPassword" id="unlockPassword" class="form-control" ng-keyup="($event.keyCode == 13) ? unlockVault() : return" ng-model="password" autofocus />
 						<button type="button" ng-click="unlockVault()"><i class="fas fa-unlock-alt"></i></button>
 					</div>
 				</div>

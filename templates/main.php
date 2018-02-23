@@ -16,7 +16,10 @@
  */
 
 script('spwm', 'vendor/angular');
-script('spwm', 'vendor/angular-route');
+script('spwm', 'vendor/angular-route.min');
+script('spwm', 'vendor/angular-local-storage.min');
+script('spwm', 'vendor/ng-password-meter');
+script('spwm', 'vendor/ngclipboard.min');
 
 script('spwm', 'templates');
 script('spwm', 'app/app');
@@ -24,13 +27,20 @@ script('spwm', 'app/controller/main');
 script('spwm', 'app/controller/unlock');
 script('spwm', 'app/controller/credential');
 script('spwm', 'app/controller/menu');
+script('spwm', 'app/controller/credentialedit');
 script('spwm', 'app/directive/vaultlock');
+script('spwm', 'app/directive/passwordgen');
+script('spwm', 'app/directive/tooltip');
 script('spwm', 'app/service/unlock');
 script('spwm', 'app/service/credential');
+script('spwm', 'app/service/data');
+script('spwm', 'app/service/settings');
+
 
 
 style('spwm', 'vendor/fontawesome-all.min');
 style('spwm', 'vendor/bootstrap-grid.min');
+style('spwm', 'vendor/ng-password-meter');
 style('spwm', 'app');
 ?>
 
@@ -45,11 +55,8 @@ style('spwm', 'app');
 
 	<div id="app-navigation" ng-show="unlocked" ng-controller="MenuCtrl">
 		<ul>
-			<li>
-				<a ng-href="#/vault/cat1">Cat1</a>
-			</li>
-			<li>
-				<a ng-href="#/vault/cat2">Cat2</a>
+			<li ng-repeat="category in categories">
+				<a ng-click="categoryClicked(category)">{{ category.name }}</a>
 			</li>
 		</ul>
 	</div>

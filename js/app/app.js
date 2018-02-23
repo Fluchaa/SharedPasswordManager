@@ -19,7 +19,10 @@
 
 	angular.module('spwm', [
 		'ngRoute',
-		'templates'
+		'templates-main',
+		'LocalStorageModule',
+		'ngPasswordMeter',
+		'ngclipboard'
 	]).config(function($routeProvider, $locationProvider) {
 		$routeProvider.when('/', {
 			templateUrl: 'views/unlock.html',
@@ -27,6 +30,9 @@
 		}).when('/vault', {
 			templateUrl: 'views/vault.html',
 			controller: 'CredentialCtrl'
+		}).when('/vault/new', {
+			templateUrl: 'views/credential.html',
+			controller: 'CredentialEditCtrl'
 		}).otherwise({
 			redirectTo: '/'
 		});

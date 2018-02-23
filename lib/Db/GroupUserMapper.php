@@ -57,4 +57,14 @@ class GroupUserMapper extends Mapper {
 		$groupUser->setGroupkey($key);
 		return parent::insert($groupUser);
 	}
+
+	/**
+	 * get groups of user
+	 * @param  $userId
+	 * @return GroupUser[]       
+	 */
+	public function getGroupsOfUser($userId) {
+		$sql = 'SELECT * FROM `*PREFIX*spwm_groupuser` WHERE `user_id` = ?';
+		return $this->findEntities($sql, [$userId]);
+	}
 }

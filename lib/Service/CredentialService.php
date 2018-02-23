@@ -36,13 +36,15 @@ class CredentialService {
 	private $itemMapper;
 	private $auth;
 	private $groupUserMapper;
+	private $itemPasswordMapper;
 
-	public function __construct($UserId, CryptService $crypt, ItemMapper $itemMapper, AuthenticationService $auth, GroupUserMapper $groupUserMapper) {
+	public function __construct($UserId, CryptService $crypt, ItemMapper $itemMapper, AuthenticationService $auth, GroupUserMapper $groupUserMapper, ItemPasswordMapper $itemPasswordMapper) {
 		$this->userId = $UserId;
 		$this->crypt = $crypt;
 		$this->itemMapper = $itemMapper;
 		$this->auth = $auth;
 		$this->groupUserMapper = $groupUserMapper;
+		$this->itemPasswordMapper = $itemPasswordMapper;
 	}
 
 	/**
@@ -58,9 +60,9 @@ class CredentialService {
 			try {
 				// Check if user is in group
 				$groupUser = $this->groupUserMapper->find($credential['group_id'], $this->userId);
-
+				
 				// Encrypt fields
-				$groupKey = $this->crypt->unsealGroupKey($groupUser->getGroupKey());
+				$groupKey = $this->crypt->unsealGroupKey($groupUser->getGroupkey());
 				$credential = $this->crypt->encryptCredential($credential, $groupKey);
 
 				// Create the item in DB

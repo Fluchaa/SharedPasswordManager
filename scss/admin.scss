@@ -16,4 +16,45 @@
 
  @import "_mixins.scss";
 
- 
+ #spwm-admin-settings {
+ 	#spwm-alert {
+		display: inline-block;
+		padding: 10px;
+		margin: 10px;
+
+ 		&.error {
+ 			@include animation(alert-error 2s ease-out);
+ 			@include keyframes(alert-error) {
+				0% {
+					background-color: transparent;
+					color: #545454;
+				}
+				50% {
+					background-color: #f2dede;
+					color: #a94442;
+				}
+				100% {
+					background-color: transparent;
+					color: #545454;
+				}
+ 			}
+ 		}
+ 		&.success {
+ 			@include animation(alert-success 2s ease-out);
+ 			@include keyframes(alert-success) {
+				0% {
+					background-color: transparent;
+					color: #545454;
+				}
+				50% {
+					background-color: #3c763d;
+					color: #dff0d8;
+				}
+				100% {
+					background-color: transparent;
+					color: #545454;
+				}
+ 			}
+ 		}
+ 	}
+ }

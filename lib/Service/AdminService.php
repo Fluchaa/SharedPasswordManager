@@ -26,6 +26,8 @@ use OCA\Spwm\Db\Group;
 use OCA\Spwm\Db\GroupMapper;
 use OCA\Spwm\Db\GroupUser;
 use OCA\Spwm\Db\GroupUserMapper;
+use OCA\Spwm\Db\Category;
+use OCA\Spwm\Db\CategoryMapper;
 
 use OCA\Spwm\Service\CryptService;
 use OCA\Spwm\Utility\Utils;
@@ -36,13 +38,15 @@ class AdminService {
 	private $utils;
 	private $groupMapper;
 	private $groupUserMapper;
+	private $categoryMapper;
 
-	public function __construct(UserKeyMapper $userKeyMapper, CryptService $crypt, Utils $utils, GroupMapper $groupMapper, GroupUserMapper $groupUserMapper) {
+	public function __construct(UserKeyMapper $userKeyMapper, CryptService $crypt, Utils $utils, GroupMapper $groupMapper, GroupUserMapper $groupUserMapper, CategoryMapper $categoryMapper) {
 		$this->userKeyMapper = $userKeyMapper;
 		$this->crypt = $crypt;
 		$this->utils = $utils;
 		$this->groupMapper = $groupMapper;
 		$this->groupUserMapper = $groupUserMapper;
+		$this->categoryMapper = $categoryMapper;
 	}
 
 	/**
@@ -104,7 +108,8 @@ class AdminService {
 			foreach($users as $user) {
 				$response[] = [
 					'user_id' => $user->getUserId(),
-					'username' => $this->utils->getNameByUserId($user->getUserId())
+					'username' => $this->utils->getNameByUserId($user->getUserId()),
+					'admin' => $this->utils->isAdmin($user->getUserId())
 				];
 			}
 
@@ -178,6 +183,115 @@ class AdminService {
 					'type' => 'error',
 					'message' => 'Error during group creation'
 				];
+			}
+		}
+	}
+
+	/**
+	 * get all categories
+	 */
+	public function getCategories() {
+		try {
+			$categories = $this->categoryMapper->getCategories();
+
+			$response = [];
+			foreach($categories as $category) {
+				$response[] = [
+					'category_id' => $category->getCategoryId(),
+					'name' => $category->getName()
+				];
+			}
+
+			return $response;
+		} catch(DoesNotExistException $e) {
+			return null;
+		}
+	}
+
+	/**
+	 * add category
+	 */
+	public function addCategory($name) {
+		try {
+			$this->categoryMapper->findName($name);
+			return [
+				'type' => 'error',
+				'message' => 'Category already exists'
+			];
+		} catch(DoesNotExistException $e) {
+			try {
+				// create category
+				$category = $this->categoryMapper->create($name);
+
+				if($category) {
+					return [
+						'type' => 'success',
+						'message' => 'Category created successful',
+						'category' => [
+							'category_id' => $category->getId(),
+							'name' => $category->getName()
+						]
+					];
+				}
+				return [
+					'type' => 'error',
+					'message' => 'Error on Database insert'
+				];
+
+			} catch(Exception $e) {
+				return [
+					'type' => 'error',
+					'message' => 'Error during category creation'
+				];
+			}
+		}
+	}
+
+	/**
+	 * get groups of user
+	 */
+	public function getGroupsOfUser($userId) {
+		try {
+			$groupusers = $this->groupUserMapper->getGroupsOfUser($userId);
+
+			$group_ids = [];
+			foreach($groupusers as $groupuser) {
+				$group_ids[] = $groupuser->getGroupId();
+			}
+
+			try {
+				$groups = $this->groupMapper->getGroups();
+
+				$response = [];
+				foreach($groups as $group) {
+					$response[] = [
+						'group_id' => $group->getGroupId(),
+						'name' => $group->getName(),
+						'checked' => in_array($group->getGroupId(), $group_ids)
+					];
+				}
+
+				return $response;
+			} catch(DoesNotExistException $e) {
+				return null;
+			}
+		} catch(DoesNotExistException $e) {
+			// user in no group
+			try {
+				$groups = $this->groupMapper->getGroups();
+
+				$response = [];
+				foreach($groups as $group) {
+					$response[] = [
+						'group_id' => $group->getGroupId(),
+						'name' => $group->getName(),
+						'checked' => false
+					];
+				}
+
+				return $response;
+			} catch(DoesNotExistException $e) {
+				return null;
 			}
 		}
 	}

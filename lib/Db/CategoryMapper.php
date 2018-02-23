@@ -22,64 +22,55 @@ use OCP\AppFramework\Db\Mapper;
 
 use OCA\Spwm\Utility\Utils;
 
-class GroupMapper extends Mapper {
+class CategoryMapper extends Mapper {
 	private $utils;
 
 	public function __construct(IDBConnection $db, Utils $utils) {
-		parent::__construct($db, 'spwm_group');
+		parent::__construct($db, 'spwm_category');
 		$this->utils = $utils;
 	}
 
 	/**
-	 * Get Group Entity
+	 * Get Category Entity
 	 * @throws DoesNotExistException if no entry is found
 	 * @throws MultipleObjectsReturnedException if more than one result
-	 * @param  $groupId
-	 * @return Group
+	 * @param  $categoryId
+	 * @return Category
 	 */
-	public function find($groupId) {
-		$sql = 'SELECT * FROM `*PREFIX*spwm_group` WHERE `group_id` = ?';
-		return $this->findEntity($sql, [$groupId]);
+	public function find($categoryId) {
+		$sql = 'SELECT * FROM `*PREFIX*spwm_category` WHERE `category_id` = ?';
+		return $this->findEntity($sql, [$categoryId]);
 	}
 
 	/**
-	 * Get Group Entity
+	 * Get Category Entity
 	 * @throws DoesNotExistException if no entry is found
 	 * @throws MultipleObjectsReturnedException if more than one result
 	 * @param  $name
-	 * @return Group
+	 * @return Category
 	 */
 	public function findName($name) {
-		$sql = 'SELECT * FROM `*PREFIX*spwm_group` WHERE `name` = ?';
+		$sql = 'SELECT * FROM `*PREFIX*spwm_category` WHERE `name` = ?';
 		return $this->findEntity($sql, [$name]);
 	}
 
 	/**
-	 * Create Group Entity
+	 * Create Category Entity
 	 * @param  $name
-	 * @return Group inserted Entity        
+	 * @return Category inserted Entity        
 	 */
 	public function create($name) {
-		$group = new Group();
-		$group->setName($name);
-		return parent::insert($group);
+		$category = new Category();
+		$category->setName($name);
+		return parent::insert($category);
 	}
 
 	/**
-	 * get all groups
-	 * @return Group[]
+	 * get all categories
+	 * @return Category[]
 	 */
-	public function getGroups() {
-		$sql = 'SELECT * FROM `*PREFIX*spwm_group`';
+	public function getCategories() {
+		$sql = 'SELECT * FROM `*PREFIX*spwm_category`';
 		return $this->findEntities($sql);
-	}
-
-	/**
-	 * get groups of user
-	 * @return Group[]
-	 */
-	public function getGroupsOfUser($userId) {
-		$sql = 'SELECT `group_id`, `name` FROM `*PREFIX*spwm_group` INNER JOIN `*PREFIX*spwm_groupuser` USING(`group_id`) WHERE `user_id` = ?';
-		return $this->findEntities($sql, [$userId]);
 	}
 }

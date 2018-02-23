@@ -22,7 +22,7 @@
 					return angular.copy(credential);
 				},
 				createCredential: function(credential) {
-					var queryUrl = OC.generateUrl('/apps/spwm/api/v1/credential');
+					var queryUrl = OC.generateUrl('/apps/spwm/api/v1/credentials');
 					return $http.post(queryUrl, {credential: JSON.stringify(credential)}).then(function(response) {
 						if(response.data) {
 							return response.data;
@@ -32,7 +32,7 @@
 					});
 				},
 				getCredential: function(item_id) {
-					var queryUrl = OC.generateUrl('/apps/spwm/api/v1/credential/' + item_id);
+					var queryUrl = OC.generateUrl('/apps/spwm/api/v1/credentials/' + item_id);
 					return $http.get(queryUrl).then(function(response) {
 						if(response.data) {
 							return response.data;

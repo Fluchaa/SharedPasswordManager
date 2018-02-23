@@ -20,14 +20,26 @@ return [
 		['name' => 'settings#saveAdminSetting', 'url' => '/api/v1/settings/admin/{key}', 'verb' => 'POST'],
 
 		// Admin
+		// Users
 		['name' => 'admin#searchUser', 'url' => '/admin/users/search', 'verb' => 'GET'],
-		['name' => 'admin#addUser', 'url' => '/admin/users/add/{userId}', 'verb' => 'POST'],
+		['name' => 'admin#addUser', 'url' => '/admin/users/{userId}', 'verb' => 'POST'],
 		['name' => 'admin#getUsers', 'url' => '/admin/users', 'verb' => 'GET'],
+		['name' => 'admin#getGroupsOfUser', 'url' => '/admin/users/{userId}/groups', 'verb' => 'GET'],
+		// Groups
 		['name' => 'admin#getGroups', 'url' => '/admin/groups', 'verb' => 'GET'],
-		['name' => 'admin#addGroup', 'url' => '/admin/groups/add/{name}', 'verb' => 'POST'],
-		
+		['name' => 'admin#addGroup', 'url' => '/admin/groups/{name}', 'verb' => 'POST'],
+		// Categories
+		['name' => 'admin#getCategories', 'url' => '/admin/categories', 'verb' => 'GET'],
+		['name' => 'admin#addCategory', 'url' => '/admin/categories/{name}', 'verb' => 'POST'],
+
 		// Credential
-		['name' => 'credential#createCredential', 'url' => '/api/v1/credential', 'verb' => 'POST'],
-		['name' => 'credential#getCredential', 'url' => '/api/v1/credential/{item_id}', 'verb' => 'GET'],
+		['name' => 'credential#createCredential', 'url' => '/api/v1/credentials', 'verb' => 'POST'],
+		['name' => 'credential#getCredential', 'url' => '/api/v1/credentials/{item_id}', 'verb' => 'GET'],
+
+		// Categories
+		['name' => 'data#getCategories', 'url' => '/api/v1/categories', 'verb' => 'GET'],
+
+		// Groups
+		['name' => 'data#getGroups', 'url' => '/api/v1/groups', 'verb' => 'GET'],
     ]
 ];

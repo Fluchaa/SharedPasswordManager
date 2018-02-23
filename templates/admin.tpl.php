@@ -24,6 +24,7 @@ style('spwm', 'vendor/fontawesome-all.min');
 ?>
 <div id="spwm-admin-settings" class="section">
 	<h2>Shared Password Manager</h2>
+
 	<div id="spwm-alert"></div>
 	<div id="spwm-tabs">
 		<ul>
@@ -36,7 +37,11 @@ style('spwm', 'vendor/fontawesome-all.min');
 			<li id="groups-link" style="display:none">
 				<a href="#groups">Groups</a>
 			</li>
+			<li>
+				<a href="#categories">Categories</a>
+			</li>
 		</ul>
+
 		<div id="users">
 			<h3>Add User for Access</h3>
 			<label for="spwm_add_username">Username</label>
@@ -63,9 +68,11 @@ style('spwm', 'vendor/fontawesome-all.min');
 				</ul>
 			</div>
 		</div>
+
 		<div id="edit-user">
 			
 		</div>
+
 		<div id="groups">
 			<h3>Add Groups</h3>
 			<label for="spwm_add_group">Group</label>
@@ -84,10 +91,26 @@ style('spwm', 'vendor/fontawesome-all.min');
 
 				</tbody>
 			</table>
-			<div id="groups_table_pagination">
-				<ul class="pagination">
-				</ul>
-			</div>
+		</div>
+
+		<div id="categories">
+			<h3>Add Categories</h3>
+			<label for="spwm_add_category">Category</label>
+			<input type="text" name="spwm_add_category" id="spwm_add_category" />
+			<button id="spwm_add_category_button">Add</button>
+
+			<h3>List of Categories</h3>
+			<table id="categories_table" class="table">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+
+				</tbody>
+			</table>
 		</div>
 	</div>
 </div>

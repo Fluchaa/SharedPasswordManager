@@ -13,5 +13,136 @@
  * Noone is permitted to use or sell parts of the Software or the whole Software 
  * without the written permission of niTEC GesbR. 
  */
+#spwm-admin-settings #spwm-alert {
+  display: inline-block;
+  padding: 10px;
+  margin: 10px;
+}
+#spwm-admin-settings #spwm-alert.error {
+  -moz-animation: alert-error 2s ease-out;
+  -webkit-animation: alert-error 2s ease-out;
+  -ms-animation: alert-error 2s ease-out;
+  -o-animation: alert-error 2s ease-out;
+  animation: alert-error 2s ease-out;
+}
+@-webkit-keyframes alert-error {
+  0% {
+    background-color: transparent;
+    color: #545454;
+  }
+  50% {
+    background-color: #f2dede;
+    color: #a94442;
+  }
+  100% {
+    background-color: transparent;
+    color: #545454;
+  }
+}
+@-moz-keyframes alert-error {
+  0% {
+    background-color: transparent;
+    color: #545454;
+  }
+  50% {
+    background-color: #f2dede;
+    color: #a94442;
+  }
+  100% {
+    background-color: transparent;
+    color: #545454;
+  }
+}
+@-o-keyframes alert-error {
+  0% {
+    background-color: transparent;
+    color: #545454;
+  }
+  50% {
+    background-color: #f2dede;
+    color: #a94442;
+  }
+  100% {
+    background-color: transparent;
+    color: #545454;
+  }
+}
+@keyframes alert-error {
+  0% {
+    background-color: transparent;
+    color: #545454;
+  }
+  50% {
+    background-color: #f2dede;
+    color: #a94442;
+  }
+  100% {
+    background-color: transparent;
+    color: #545454;
+  }
+}
+#spwm-admin-settings #spwm-alert.success {
+  -moz-animation: alert-success 2s ease-out;
+  -webkit-animation: alert-success 2s ease-out;
+  -ms-animation: alert-success 2s ease-out;
+  -o-animation: alert-success 2s ease-out;
+  animation: alert-success 2s ease-out;
+}
+@-webkit-keyframes alert-success {
+  0% {
+    background-color: transparent;
+    color: #545454;
+  }
+  50% {
+    background-color: #3c763d;
+    color: #dff0d8;
+  }
+  100% {
+    background-color: transparent;
+    color: #545454;
+  }
+}
+@-moz-keyframes alert-success {
+  0% {
+    background-color: transparent;
+    color: #545454;
+  }
+  50% {
+    background-color: #3c763d;
+    color: #dff0d8;
+  }
+  100% {
+    background-color: transparent;
+    color: #545454;
+  }
+}
+@-o-keyframes alert-success {
+  0% {
+    background-color: transparent;
+    color: #545454;
+  }
+  50% {
+    background-color: #3c763d;
+    color: #dff0d8;
+  }
+  100% {
+    background-color: transparent;
+    color: #545454;
+  }
+}
+@keyframes alert-success {
+  0% {
+    background-color: transparent;
+    color: #545454;
+  }
+  50% {
+    background-color: #3c763d;
+    color: #dff0d8;
+  }
+  100% {
+    background-color: transparent;
+    color: #545454;
+  }
+}
 
 /*# sourceMappingURL=admin.css.map */
