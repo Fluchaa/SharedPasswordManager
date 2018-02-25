@@ -143,7 +143,7 @@ class CryptService {
 	 * @return string                 
 	 */
 	public function unsealGroupKey($sealedGroupKey) {
-		return Asym::unseal($sealedGroupKey, new EncryptionSecretKey(new HiddenString(base64_decode($this->session->get('spwm_private_key')))));
+		return Asym::unseal($sealedGroupKey, new EncryptionSecretKey(new HiddenString(base64_decode($this->session->get('spwm_private_key')))))->getString();
 	}
 
 	/**
@@ -165,7 +165,7 @@ class CryptService {
 	 */
 	public function decryptItemField($cipher, $groupKey) {
 		$groupKey = base64_decode($groupKey);
-		return Sym::decrypt($cipher, new EncryptionKey(new HiddenString($groupKey)));
+		return Sym::decrypt($cipher, new EncryptionKey(new HiddenString($groupKey)))->getString();
 	}
 
 	/**

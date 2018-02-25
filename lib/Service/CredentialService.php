@@ -56,6 +56,10 @@ class CredentialService {
 		$itemId = hash('sha256', time());
 		try {
 			$this->itemMapper->find($itemId);
+			return [
+				'type' => 'error',
+				'message' => 'Duplicate Item ID'
+			];
 		} catch(DoesNotExistException $e) {
 			try {
 				// Check if user is in group

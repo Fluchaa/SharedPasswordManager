@@ -23,7 +23,7 @@
 				},
 				createCredential: function(credential) {
 					var queryUrl = OC.generateUrl('/apps/spwm/api/v1/credentials');
-					return $http.post(queryUrl, {credential: JSON.stringify(credential)}).then(function(response) {
+					return $http.post(queryUrl, {credential: credential}).then(function(response) {
 						if(response.data) {
 							return response.data;
 						} else {
